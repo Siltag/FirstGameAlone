@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cl62ynah0tmm5"]
+[gd_scene format=3 uid="uid://cl62ynah0tmm5"]
 
 [ext_resource type="Script" uid="uid://cpqb43h1841rx" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://daqgfdtnsuecd" path="res://Assets/GandalfHardcore Succubus DEMO/GandalfHardcore Succubus demo.png" id="2_6t5aa"]
@@ -110,16 +110,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(30, 48)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=163753771]
 script = ExtResource("1_cvnsp")
 maxHP = 90
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
 position = Vector2(-1, -36)
 sprite_frames = SubResource("SpriteFrames_f1ek2")
 animation = &"run"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=406028918]
 position = Vector2(-1, -24)
 shape = SubResource("RectangleShape2D_cvnsp")

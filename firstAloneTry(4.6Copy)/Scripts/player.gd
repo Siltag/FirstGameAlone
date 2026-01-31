@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 #region stats
 @export var maxHP: int 
-@export var SPEED = 300.0
+@export var SPEED := 300.0
 @export var armor := 0
 #endregion
 
@@ -25,6 +25,7 @@ var currentHP:
 		return _currentHP
 #endregion 
 
+#region damage and knockback
 var knockback: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 func apply_knockback (direction: Vector2, force: float, knockback_duration: float) -> void:
@@ -32,24 +33,20 @@ func apply_knockback (direction: Vector2, force: float, knockback_duration: floa
 	knockback_timer = knockback_duration
 
 func take_dmg(damage : damage_profile, source_position := Vector2.ZERO):
-	currentHP -= (damage.amount - armor)
-	var knockback_direction = (global_position - damage.position).normalized()
-	apply_knockback(knockback_direction, damage.knockbackForce, damage.knockbackDuration)
+	print(
+	"affects =", damage.affects,
+	" PLAYER bit =", global_defs.areAffected.PLAYER,
+	" AND result =", damage.affects & global_defs.areAffected.PLAYER,
+	
+)
+	if(damage.affects & global_defs.areAffected.PLAYER) != 0:
+		currentHP -= (damage.amount - armor)
+		var knockback_direction = (global_position - source_position).normalized()
+		apply_knockback(knockback_direction, damage.knockbackForce, damage.knockbackDuration)
 
+#endregion
 
-func _ready() -> void:
-	_currentHP = maxHP
-
-func _physics_process(delta: float) -> void:
-	if knockback_timer > 0.0:
-		velocity = knockback
-		knockback_timer -= delta
-		if knockback_timer <= 0.0:
-			knockback = Vector2.ZERO 
-
-
-
-#region movement controls
+func manuel_movement():
 	var xdirection := Input.get_axis("moveLeft", "moveRight")
 	if xdirection:
 		velocity.x = xdirection * SPEED
@@ -64,11 +61,31 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.x, 0, SPEED)		
 		
-	if xdirection >0:
+	
+
+
+func _ready() -> void:
+	_currentHP = maxHP
+	
+
+func _physics_process(delta: float) -> void:
+	if knockback_timer > 0.0:
+		velocity = knockback
+		knockback_timer -= delta
+		if knockback_timer <= 0.0:
+			knockback = Vector2.ZERO 
+	else:
+		manuel_movement()
+
+
+
+#region movement controls
+
+	if velocity.x >0:
 		sprite.flip_h = true
-	if xdirection <0 :
+	if velocity.x <0 :
 		sprite.flip_h = false
-	if xdirection == 0 && ydirection == 0:
+	if velocity == Vector2.ZERO:
 		sprite.play("idle")
 	else:
 		sprite.play("run")

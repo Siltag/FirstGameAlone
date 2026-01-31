@@ -107,7 +107,7 @@ sources/0 = SubResource("TileSetAtlasSource_jkdf5")
 script = ExtResource("5_kry3j")
 amount = 15
 knockbackForce = 150.0
-knockbackDuration = 0.12
+knockbackDuration = 0.1
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
