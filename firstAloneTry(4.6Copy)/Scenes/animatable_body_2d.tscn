@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cison1kpe1104"]
+
+[ext_resource type="Texture2D" uid="uid://iporfm6qa0l" path="res://Assets/File.png" id="1_4us8c"]
+[ext_resource type="PackedScene" uid="uid://du2m346t0ivh8" path="res://Scenes/damage_area.tscn" id="2_hkht2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4t0rs"]
+size = Vector2(20, 45.9989)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.786295
+texture = ExtResource("1_4us8c")
+region_enabled = true
+region_rect = Rect2(96, 96, 32, 32)
+
+[node name="damageArea" parent="Sprite2D" instance=ExtResource("2_hkht2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/damageArea"]
+position = Vector2(0.00503862, 0.00495855)
+rotation = -0.793364
+shape = SubResource("RectangleShape2D_4t0rs")
