@@ -1,5 +1,7 @@
 extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sword: AnimatableBody2D = $AnimatedSprite2D/sword
+@onready var sword_animation: AnimationPlayer = $AnimatedSprite2D/sword/AnimationPlayer
 
 #region stats
 @export var maxHP: int 
@@ -46,6 +48,7 @@ func take_dmg(damage : damage_profile, source_position := Vector2.ZERO):
 
 #endregion
 
+#region movement function
 func manuel_movement():
 	var xdirection := Input.get_axis("moveLeft", "moveRight")
 	if xdirection:
@@ -59,9 +62,9 @@ func manuel_movement():
 		velocity.y = ydirection * SPEED
 		
 	else:
-		velocity.y = move_toward(velocity.x, 0, SPEED)		
+		velocity.y = move_toward(velocity.y, 0, SPEED)		
 		
-	
+#endregion
 
 
 func _ready() -> void:
@@ -69,6 +72,15 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+
+
+	var attack 
+
+	if Input.is_action_just_pressed("attack"):
+		sword_animation.play("slash")
+
+
+#region movement
 	if knockback_timer > 0.0:
 		velocity = knockback
 		knockback_timer -= delta
@@ -76,10 +88,6 @@ func _physics_process(delta: float) -> void:
 			knockback = Vector2.ZERO 
 	else:
 		manuel_movement()
-
-
-
-#region movement controls
 
 	if velocity.x >0:
 		sprite.flip_h = true

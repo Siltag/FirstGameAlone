@@ -11,13 +11,15 @@ knockbackDuration = 0.12
 affects = 2
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4t0rs"]
-size = Vector2(20, 45.9989)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6wag"]
+size = Vector2(20, 45)
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" unique_id=922896719]
+[node name="sword" type="AnimatableBody2D" unique_id=922896719]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1288731502]
-rotation = 0.786295
+position = Vector2(9.536743e-07, -22)
+rotation = 0.7853982
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("1_4us8c")
 region_enabled = true
 region_rect = Rect2(96, 96, 32, 32)
@@ -26,8 +28,7 @@ region_rect = Rect2(96, 96, 32, 32)
 damage = SubResource("Resource_4t0rs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/damageArea" unique_id=706865114]
-position = Vector2(0.00503862, 0.00495855)
-rotation = -0.793364
-shape = SubResource("RectangleShape2D_4t0rs")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1417811145]
+z_index = -1
+position = Vector2(-0.35355473, -0.35355282)
+rotation = -0.7853982
+shape = SubResource("RectangleShape2D_d6wag")
