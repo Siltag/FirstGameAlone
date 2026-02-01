@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var sword: AnimatableBody2D = $AnimatedSprite2D/sword
-@onready var sword_animation: AnimationPlayer = $AnimatedSprite2D/sword/AnimationPlayer
+@onready var sword: AnimatableBody2D = $sword
+@onready var slash_animation: AnimationPlayer = $"sword/slash animation"
 
 #region stats
 @export var maxHP: int 
@@ -49,21 +49,7 @@ func take_dmg(damage : damage_profile, source_position := Vector2.ZERO):
 #endregion
 
 #region movement function
-func manuel_movement():
-	var xdirection := Input.get_axis("moveLeft", "moveRight")
-	if xdirection:
-		velocity.x = xdirection * SPEED
-		
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	var ydirection := Input.get_axis("moveUp", "moveDown")
-	if ydirection:
-		velocity.y = ydirection * SPEED
-		
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)		
-		
+
 #endregion
 
 
@@ -74,10 +60,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 
-	var attack 
 
 	if Input.is_action_just_pressed("attack"):
-		sword_animation.play("slash")
+		slash_animation.play("slash")
 
 
 #region movement
@@ -87,7 +72,16 @@ func _physics_process(delta: float) -> void:
 		if knockback_timer <= 0.0:
 			knockback = Vector2.ZERO 
 	else:
-		manuel_movement()
+		var move_input = Vector2(Input.get_action_strength("moveRight") - Input.get_action_strength("moveLeft"),
+			Input.get_action_strength("moveDown")-Input.get_action_strength("moveUp")).normalized()	
+		if move_input != Vector2.ZERO:
+			velocity = move_input * SPEED 
+			
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.y = move_toward(velocity.y, 0, SPEED)		
+				
+
 
 	if velocity.x >0:
 		sprite.flip_h = true

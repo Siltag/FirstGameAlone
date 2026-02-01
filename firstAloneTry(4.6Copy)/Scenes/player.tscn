@@ -108,43 +108,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_6bp64"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_344ge"]
-resource_name = "slash"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -3.1415927]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
-_data = {
-&"RESET": SubResource("Animation_6bp64"),
-&"slash": SubResource("Animation_344ge")
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(30, 48)
 
@@ -158,12 +121,11 @@ sprite_frames = SubResource("SpriteFrames_f1ek2")
 animation = &"run"
 autoplay = "idle"
 
-[node name="sword" parent="AnimatedSprite2D" unique_id=922896719 instance=ExtResource("3_6t5aa")]
-position = Vector2(-21, 20)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D/sword" unique_id=1689650769]
-libraries/ = SubResource("AnimationLibrary_vgqql")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=406028918]
 position = Vector2(-1, -24)
 shape = SubResource("RectangleShape2D_cvnsp")
+
+[node name="sword" parent="." unique_id=922896719 instance=ExtResource("3_6t5aa")]
+position = Vector2(16, -19)
+
+[editable path="sword"]
