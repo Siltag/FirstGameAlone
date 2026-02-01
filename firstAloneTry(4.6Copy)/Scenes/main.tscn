@@ -133,6 +133,7 @@ armor = 6
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1376199283]
 position = Vector2(-1, 2)
 zoom = Vector2(1.5, 1.5)
+position_smoothing_speed = 15.0
 
 [node name="tileMap" type="Node" parent="." unique_id=1648069152]
 
@@ -160,3 +161,6 @@ damage = SubResource("Resource_kry3j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damageArea2" unique_id=990374155]
 shape = SubResource("CircleShape2D_21xkr")
+
+[editable path="Player"]
+[editable path="Player/sword"]
