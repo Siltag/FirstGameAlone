@@ -5,6 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://du2m346t0ivh8" path="res://Scenes/damage_area.tscn" id="4_jjvhh"]
 [ext_resource type="Texture2D" uid="uid://4jyh5fci36mp" path="res://Assets/TileSets/cursedlands/Tiled_files/Objects.png" id="5_344ge"]
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://b18hnxliauy5f" path="res://Scenes/basic_enemy.tscn" id="6_21xkr"]
+
+[sub_resource type="Resource" id="Resource_6bp64"]
+script = ExtResource("5_kry3j")
+knockbackForce = 150.0
+knockbackDuration = 0.12
+affects = 2
+metadata/_custom_type_script = "uid://cegahpd57bj34"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1ilt"]
 texture = ExtResource("4_6bp64")
@@ -130,6 +138,9 @@ position = Vector2(1, -3)
 maxHP = 100
 armor = 6
 
+[node name="damageArea" parent="Player/sword/Sprite2D" parent_id_path=PackedInt32Array(2111454735, 922896719, 1288731502) index="0" unique_id=1663025162]
+damage = SubResource("Resource_6bp64")
+
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1376199283]
 position = Vector2(-1, 2)
 zoom = Vector2(1.5, 1.5)
@@ -161,6 +172,12 @@ damage = SubResource("Resource_kry3j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damageArea2" unique_id=990374155]
 shape = SubResource("CircleShape2D_21xkr")
+
+[node name="BasicEnemy" parent="." unique_id=2029116970 instance=ExtResource("6_21xkr")]
+position = Vector2(-182, -8)
+
+[node name="BasicEnemy2" parent="." unique_id=1365347993 instance=ExtResource("6_21xkr")]
+position = Vector2(194, -141)
 
 [editable path="Player"]
 [editable path="Player/sword"]
