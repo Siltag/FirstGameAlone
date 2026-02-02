@@ -35,12 +35,7 @@ func apply_knockback (direction: Vector2, force: float, knockback_duration: floa
 	knockback_timer = knockback_duration
 
 func take_dmg(damage : damage_profile, source_position := Vector2.ZERO):
-	print(
-	"affects =", damage.affects,
-	" PLAYER bit =", global_defs.areAffected.PLAYER,
-	" AND result =", damage.affects & global_defs.areAffected.PLAYER,
-	
-)
+
 	if(damage.affects & global_defs.areAffected.PLAYER) != 0:
 		currentHP -= (damage.amount - armor)
 		var knockback_direction = (global_position - source_position).normalized()
@@ -55,7 +50,7 @@ func take_dmg(damage : damage_profile, source_position := Vector2.ZERO):
 
 func _ready() -> void:
 	_currentHP = maxHP
-	
+	GameState.player = self
 
 func _physics_process(delta: float) -> void:
 
@@ -95,3 +90,7 @@ func _physics_process(delta: float) -> void:
 
 
 	move_and_slide()
+
+func _exit_tree() -> void:
+	if GameState.player == self:
+		GameState.player = null
