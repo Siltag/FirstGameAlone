@@ -14,3 +14,4 @@ script = ExtResource("1_tuwn5")
 damage = SubResource("Resource_utike")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="damage_hit" from="." to="." method="_on_damage_hit"]
