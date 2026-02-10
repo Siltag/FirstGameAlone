@@ -114,6 +114,10 @@ metadata/_custom_type_script = "uid://cegahpd57bj34"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 size = Vector2(48, 40)
 
+[sub_resource type="Resource" id="Resource_344ge"]
+script = ExtResource("5_kry3j")
+metadata/_custom_type_script = "uid://cegahpd57bj34"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_21xkr"]
 radius = 41.0
 
@@ -150,7 +154,7 @@ shape = SubResource("RectangleShape2D_kry3j")
 
 [node name="damageArea2" parent="." unique_id=802174665 instance=ExtResource("4_jjvhh")]
 position = Vector2(507, -110)
-damage = null
+damage = SubResource("Resource_344ge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damageArea2" unique_id=990374155]
 shape = SubResource("CircleShape2D_21xkr")

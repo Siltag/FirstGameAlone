@@ -1,76 +1,95 @@
-[gd_scene format=3 uid="uid://cison1kpe1104"]
+[gd_scene format=3 uid="uid://bj7bks587co51"]
 
 [ext_resource type="Texture2D" uid="uid://iporfm6qa0l" path="res://Assets/File.png" id="1_4us8c"]
-[ext_resource type="PackedScene" uid="uid://du2m346t0ivh8" path="res://Scenes/damage_area.tscn" id="2_hkht2"]
-[ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="3_hkht2"]
+[ext_resource type="Script" uid="uid://b1xht8vf6j8gs" path="res://Scripts/damage_area.gd" id="2_6wdhb"]
 
-[sub_resource type="Resource" id="Resource_4t0rs"]
-script = ExtResource("3_hkht2")
-knockbackForce = 150.0
-knockbackDuration = 0.12
-metadata/_custom_type_script = "uid://cegahpd57bj34"
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d6wag"]
+radius = 8.0
+height = 40.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d6wag"]
-size = Vector2(20, 45.5)
-
-[sub_resource type="Animation" id="Animation_d6wag"]
+[sub_resource type="Animation" id="Animation_kb2vl"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
+tracks/0/path = NodePath("blade/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [0.7853982]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blade/Sprite2D/DamageArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_kb2vl"]
+[sub_resource type="Animation" id="Animation_6j4cb"]
 resource_name = "slash"
 length = 0.3
-step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
+tracks/0/path = NodePath("blade/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(-2, -2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 3.1415927]
+"values": [0.7853982, 3.9269907]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blade/Sprite2D/DamageArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6j4cb"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksptp"]
 _data = {
-&"RESET": SubResource("Animation_d6wag"),
-&"slash": SubResource("Animation_kb2vl")
+&"RESET": SubResource("Animation_kb2vl"),
+&"slash": SubResource("Animation_6j4cb")
 }
 
-[node name="sword" type="AnimatableBody2D" unique_id=922896719]
+[node name="Sword" type="Node2D" unique_id=422714246]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1288731502]
-position = Vector2(9.536743e-07, -22)
+[node name="blade" type="Node2D" parent="." unique_id=997916396]
+
+[node name="Sprite2D" type="Sprite2D" parent="blade" unique_id=1701591953]
 rotation = 0.7853982
-scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("1_4us8c")
+centered = false
+offset = Vector2(-32, -32)
 region_enabled = true
 region_rect = Rect2(96, 96, 32, 32)
 
-[node name="damageArea" parent="Sprite2D" unique_id=1663025162 instance=ExtResource("2_hkht2")]
-collision_layer = 0
-collision_mask = 5
-damage = SubResource("Resource_4t0rs")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/damageArea" unique_id=706865114]
-z_index = -1
-position = Vector2(-0.53033066, -0.53032875)
+[node name="DamageArea" type="Area2D" parent="blade/Sprite2D" unique_id=1877580495]
 rotation = -0.7853982
-shape = SubResource("RectangleShape2D_d6wag")
+script = ExtResource("2_6wdhb")
+metadata/_custom_type_script = "uid://b1xht8vf6j8gs"
 
-[node name="slash animation" type="AnimationPlayer" parent="." unique_id=1637530664]
-libraries/ = SubResource("AnimationLibrary_6j4cb")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blade/Sprite2D/DamageArea" unique_id=2035564849]
+position = Vector2(0, -29)
+shape = SubResource("CapsuleShape2D_d6wag")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="blade" unique_id=547016115]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_ksptp")

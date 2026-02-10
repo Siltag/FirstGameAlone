@@ -72,7 +72,7 @@ size = Vector2(25.297184, 18.756153)
 
 [node name="BasicEnemy" type="CharacterBody2D" unique_id=2029116970]
 collision_layer = 5
-collision_mask = 0
+collision_mask = 5
 script = ExtResource("1_6kac6")
 damage = SubResource("Resource_6cefa")
 

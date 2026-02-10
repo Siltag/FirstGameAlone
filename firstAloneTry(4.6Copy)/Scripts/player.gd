@@ -1,10 +1,9 @@
 extends CharacterBody2D
 @onready var sword: AnimatableBody2D = $sword
-@onready var slash_animation: AnimationPlayer = $"sword/slash animation"
-@onready var health := $HealthComp
-@onready var damage_area: DamageArea = $sword/Sprite2D/damageArea
 @onready var movement_input: Node = $player_movement/movement_input
 @onready var knockback: MovementKnockback = $player_movement/movement_knockback
+@onready var sword_animation: AnimationPlayer = $Sword/blade/AnimationPlayer
+@onready var damage_area: DamageArea = $Sword/blade/Sprite2D/DamageArea
 
 
 
@@ -44,13 +43,19 @@ var current_health:= 100 :
 		_currentHP = clamp(value, 0 ,max_health)
 		
 		print(_currentHP)
+		
+		if(_currentHP == 0):
+			print("u shit")
+			get_tree().reload_current_scene()
 	get:
 		return _currentHP
 
 
 
 func take_damage(damage : damage_profile, target_position: Vector2):
+	
 	current_health -= (damage.amount - armor)
+	
 	knockback.apply_knockback(damage.knockbackForce, damage.knockbackDuration, self, target_position)
 
 
@@ -74,7 +79,7 @@ func _physics_process(delta: float) -> void:
 
 
 	if Input.is_action_just_pressed("attack"):
-		slash_animation.play("slash")
+		sword_animation.play("slash")
 
 
 #region movement
