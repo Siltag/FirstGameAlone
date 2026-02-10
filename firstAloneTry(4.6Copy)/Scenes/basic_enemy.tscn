@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="3_6kac6"]
 [ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_6cefa"]
 [ext_resource type="Script" uid="uid://120p0blcgfv7" path="res://Scripts/movement_comps/movement_ai_basic.gd" id="5_6pvwk"]
+[ext_resource type="Script" uid="uid://bq2h85wkjuo45" path="res://Scripts/health_component.gd" id="7_6pvwk"]
+[ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="8_dhrsy"]
 
 [sub_resource type="Resource" id="Resource_6cefa"]
 script = ExtResource("3_6kac6")
@@ -91,17 +93,30 @@ damage = null
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_f0pfe")
 
-[node name="Movement_ai_basic" type="Node" parent="." unique_id=734531241 node_paths=PackedStringArray("body")]
-script = ExtResource("5_6pvwk")
-body = NodePath("..")
-
-[node name="movement_base" type="Node" parent="." unique_id=133645351 node_paths=PackedStringArray("body", "sprite")]
-script = ExtResource("5_6cefa")
-body = NodePath("..")
-sprite = NodePath("../AnimatedSprite2D")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1334004367]
 position = Vector2(-2.2500002, 0.24999963)
 scale = Vector2(0.73130673, 1.5195013)
 shape = SubResource("RectangleShape2D_r4aor")
 debug_color = Color(0, 0.57419544, 0.8302819, 0.41960785)
+
+[node name="HealthComp" type="Node" parent="." unique_id=1585816900]
+script = ExtResource("7_6pvwk")
+metadata/_custom_type_script = "uid://bq2h85wkjuo45"
+
+[node name="Movement" type="Node" parent="." unique_id=1046249040]
+
+[node name="Movement_ai_basic" type="Node" parent="Movement" unique_id=734531241 node_paths=PackedStringArray("body")]
+script = ExtResource("5_6pvwk")
+body = NodePath("../..")
+
+[node name="movement_base" type="Node" parent="Movement" unique_id=133645351 node_paths=PackedStringArray("body", "sprite")]
+script = ExtResource("5_6cefa")
+body = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="MovementKnockback" type="Node" parent="Movement" unique_id=696898690]
+script = ExtResource("8_dhrsy")
+metadata/_custom_type_script = "uid://c6c5u7saucpqq"
+
+[connection signal="hit" from="." to="HealthComp" method="_on_basic_enemy_hit"]
+[connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]

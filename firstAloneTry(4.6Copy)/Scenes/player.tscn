@@ -152,4 +152,7 @@ script = ExtResource("6_8erm5")
 [node name="Sword" parent="." unique_id=422714246 instance=ExtResource("3_6t5aa")]
 position = Vector2(15, -20)
 
+[node name="DamageArea" parent="Sword/blade/Sprite2D" parent_id_path=PackedInt32Array(422714246, 1701591953) index="0" unique_id=1877580495]
+collision_layer = 4
+
 [editable path="Sword"]

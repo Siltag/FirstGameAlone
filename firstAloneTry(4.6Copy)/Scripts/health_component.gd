@@ -2,26 +2,25 @@ extends Node
 class_name HealthComp
 
 
-var base_health: int 
+var health: int 
 var armor: int
-
-var flat_bonus_health := 0
-var percentage_bonus_health := 1
-
-var max_health: int = (base_health * percentage_bonus_health) + flat_bonus_health 
 
 var _currentHP
 var current_health:= 100 : 
 	set(value):
-		_currentHP = clamp(value, 0 ,max_health)
-		
+		_currentHP = clamp(value, 0 ,health)
 		print(_currentHP)
+		
 	get:
 		return _currentHP
 
 func _ready() -> void:
-	current_health = (base_health * percentage_bonus_health) + flat_bonus_health
-	
+	current_health = health
 
 func take_damage(damage : damage_profile, target_position: Vector2):
 	current_health -= (damage.amount - armor)
+	print("enemy hit 2")
+
+
+func _on_basic_enemy_hit(dmg: damage_profile, source_location: Vector2) -> void:
+	take_damage(dmg, source_location)

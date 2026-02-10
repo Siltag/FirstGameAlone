@@ -74,6 +74,7 @@ _data = {
 
 [node name="Sprite2D" type="Sprite2D" parent="blade" unique_id=1701591953]
 rotation = 0.7853982
+scale = Vector2(5, 5)
 texture = ExtResource("1_4us8c")
 centered = false
 offset = Vector2(-32, -32)
@@ -82,6 +83,8 @@ region_rect = Rect2(96, 96, 32, 32)
 
 [node name="DamageArea" type="Area2D" parent="blade/Sprite2D" unique_id=1877580495]
 rotation = -0.7853982
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("2_6wdhb")
 metadata/_custom_type_script = "uid://b1xht8vf6j8gs"
 
@@ -90,6 +93,6 @@ position = Vector2(0, -29)
 shape = SubResource("CapsuleShape2D_d6wag")
 disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="blade" unique_id=547016115]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="blade/Sprite2D/DamageArea" unique_id=547016115]
+root_node = NodePath("../../../..")
 libraries/ = SubResource("AnimationLibrary_ksptp")
