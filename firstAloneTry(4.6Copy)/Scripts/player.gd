@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var health := $HealthComp
 @onready var damage_area: DamageArea = $sword/Sprite2D/damageArea
 @onready var movement_input: Node = $player_movement/movement_input
+@onready var knockback: MovementKnockback = $player_movement/movement_knockback
+
 
 
 @export var base_health := 100
@@ -49,6 +51,7 @@ var current_health:= 100 :
 
 func take_damage(damage : damage_profile, target_position: Vector2):
 	current_health -= (damage.amount - armor)
+	knockback.apply_knockback(damage.knockbackForce, damage.knockbackDuration, self, target_position)
 
 
 

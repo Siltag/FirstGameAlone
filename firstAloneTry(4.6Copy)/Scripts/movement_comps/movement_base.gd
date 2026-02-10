@@ -5,8 +5,8 @@ class_name movement_base
 @export var sprite : AnimatedSprite2D
 
 var desired_velocity := Vector2.ZERO
-var override_velocity:= Vector2.ZERO
-var override_duration := 0
+var override_velocity := Vector2.ZERO
+var override_duration := 0.0
 
 func _physics_process(delta: float) -> void:
 	if override_duration > 0:
@@ -17,5 +17,8 @@ func _physics_process(delta: float) -> void:
 		
 	if sprite != null:
 		sprite.flip_h = body.velocity.x < 0
+	
+	if body.velocity != Vector2.ZERO && body == GameState.player :
+		sprite.play("run")
 	
 	body.move_and_slide()

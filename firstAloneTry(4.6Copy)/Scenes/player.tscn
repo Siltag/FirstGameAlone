@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://daqgfdtnsuecd" path="res://Assets/GandalfHardcore Succubus DEMO/GandalfHardcore Succubus demo.png" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="2_x3wgy"]
 [ext_resource type="PackedScene" uid="uid://cison1kpe1104" path="res://Scenes/sword.tscn" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://bq2h85wkjuo45" path="res://Scripts/health_component.gd" id="3_fkybt"]
 [ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_8erm5"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="6_8erm5"]
 [ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
@@ -121,10 +120,9 @@ animations = [{
 size = Vector2(30, 48)
 
 [node name="Player" type="CharacterBody2D" unique_id=163753771]
+collision_layer = 3
+collision_mask = 0
 script = ExtResource("1_cvnsp")
-base_health = null
-armor = null
-move_speed = null
 damage = SubResource("Resource_3smsa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
@@ -151,10 +149,10 @@ metadata/_custom_type_script = "uid://beis6iule1bya"
 [node name="movement_knockback" type="Node" parent="player_movement" unique_id=1190162567]
 script = ExtResource("6_8erm5")
 
-[node name="HealthComp" type="Node" parent="." unique_id=1141680338]
-script = ExtResource("3_fkybt")
-
 [node name="sword" parent="." unique_id=922896719 instance=ExtResource("3_6t5aa")]
 position = Vector2(16, -19)
+
+[node name="damageArea" parent="sword/Sprite2D" parent_id_path=PackedInt32Array(922896719, 1288731502) index="0" unique_id=1663025162]
+damage = null
 
 [editable path="sword"]
