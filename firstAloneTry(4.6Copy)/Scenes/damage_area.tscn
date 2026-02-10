@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_utike"]
 script = ExtResource("2_6yhnm")
+amount = null
 knockbackForce = 150.0
 knockbackDuration = 0.12
 metadata/_custom_type_script = "uid://cegahpd57bj34"

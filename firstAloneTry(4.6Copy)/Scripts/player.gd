@@ -1,33 +1,25 @@
 extends CharacterBody2D
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sword: AnimatableBody2D = $sword
 @onready var slash_animation: AnimationPlayer = $"sword/slash animation"
+@onready var health := $HealthComp
+@onready var damage_area: DamageArea = $sword/Sprite2D/damageArea
+@onready var movement_input: Node = $player_movement/movement_input
 
 
-#
-##region health
-#var _currentHP 
-#var mod_HP_percantage := 1
-#var mod_HP_flat := 0
+@export var base_health := 100
+@export var armor := 0
+@export var move_speed := 200
+@export var damage: damage_profile
 
-#var currentHP:
-	#set(value):
-		#_currentHP = clamp(value,0 , (maxHP*mod_HP_percantage)+mod_HP_flat)
-		#print(_currentHP)
-		#if _currentHP == 0:
-			#print("You died asshole")
-			#get_tree().reload_current_scene()
-#
-	#get:
-		#return _currentHP
-##endregion 
+
+
 
 #region damage and knockback
-var knockback: Vector2 = Vector2.ZERO
-var knockback_timer: float = 0.0
-func apply_knockback (direction: Vector2, force: float, knockback_duration: float) -> void:
-	knockback = direction*force
-	knockback_timer = knockback_duration
+#var knockback: Vector2 = Vector2.ZERO
+#var knockback_timer: float = 0.0
+#func apply_knockback (direction: Vector2, force: float, knockback_duration: float) -> void:
+	#knockback = direction*force
+	#knockback_timer = knockback_duration
 
 #func take_dmg(damage : damage_profile, source_position := Vector2.ZERO):
 
@@ -38,13 +30,41 @@ func apply_knockback (direction: Vector2, force: float, knockback_duration: floa
 
 #endregion
 
-#region movement function
 
-#endregion
+var flat_bonus_health := 0
+var percentage_bonus_health := 1
+
+var max_health: int = (base_health * percentage_bonus_health) + flat_bonus_health 
+
+var _currentHP
+var current_health:= 100 : 
+	set(value):
+		_currentHP = clamp(value, 0 ,max_health)
+		
+		print(_currentHP)
+	get:
+		return _currentHP
+
+
+
+func take_damage(damage : damage_profile, target_position: Vector2):
+	current_health -= (damage.amount - armor)
+
+
 
 
 func _ready() -> void:
+	
 	GameState.player = self
+	
+	print("base health: ", base_health)
+	
+	current_health = (base_health * percentage_bonus_health) + flat_bonus_health
+
+
+	movement_input.speed = move_speed
+	damage_area.damage = damage
+	
 
 func _physics_process(delta: float) -> void:
 
@@ -55,16 +75,16 @@ func _physics_process(delta: float) -> void:
 
 
 #region movement
-	if knockback_timer > 0.0:
-		velocity = knockback
-		knockback_timer -= delta
-		if knockback_timer <= 0.0:
-			knockback = Vector2.ZERO 
+	#if knockback_timer > 0.0:
+		#velocity = knockback
+		#knockback_timer -= delta
+		#if knockback_timer <= 0.0:
+			#knockback = Vector2.ZERO 
 
 #endregion
 
 
-	move_and_slide()
+	#move_and_slide()
 
 func _exit_tree() -> void:
 	if GameState.player == self:

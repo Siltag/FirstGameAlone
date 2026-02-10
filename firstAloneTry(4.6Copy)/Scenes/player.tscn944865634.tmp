@@ -2,16 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cpqb43h1841rx" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://daqgfdtnsuecd" path="res://Assets/GandalfHardcore Succubus DEMO/GandalfHardcore Succubus demo.png" id="2_6t5aa"]
-[ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="2_x3wgy"]
 [ext_resource type="PackedScene" uid="uid://cison1kpe1104" path="res://Scenes/sword.tscn" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://bq2h85wkjuo45" path="res://Scripts/health_component.gd" id="3_fkybt"]
-[ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_8erm5"]
-[ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="6_8erm5"]
-[ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
-
-[sub_resource type="Resource" id="Resource_3smsa"]
-script = ExtResource("2_x3wgy")
-metadata/_custom_type_script = "uid://cegahpd57bj34"
+[ext_resource type="Script" uid="uid://bs2obhhr72t7o" path="res://Scripts/player_movement.gd" id="3_x3wgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
 atlas = ExtResource("2_6t5aa")
@@ -122,10 +115,6 @@ size = Vector2(30, 48)
 
 [node name="Player" type="CharacterBody2D" unique_id=163753771]
 script = ExtResource("1_cvnsp")
-base_health = null
-armor = null
-move_speed = null
-damage = SubResource("Resource_3smsa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
 position = Vector2(-1, -36)
@@ -137,21 +126,12 @@ autoplay = "idle"
 position = Vector2(-1, -24)
 shape = SubResource("RectangleShape2D_cvnsp")
 
-[node name="player_movement" type="Node" parent="." unique_id=1785873271]
+[node name="player_movement" type="Node" parent="." unique_id=1785873271 node_paths=PackedStringArray("body", "sprite")]
+script = ExtResource("3_x3wgy")
+body = NodePath("..")
+sprite = NodePath("../AnimatedSprite2D")
 
-[node name="movement_input" type="Node" parent="player_movement" unique_id=307075695]
-script = ExtResource("6_f1ek2")
-
-[node name="movement_base" type="Node" parent="player_movement" unique_id=467936099 node_paths=PackedStringArray("body", "sprite")]
-script = ExtResource("5_8erm5")
-body = NodePath("../..")
-sprite = NodePath("../../AnimatedSprite2D")
-metadata/_custom_type_script = "uid://beis6iule1bya"
-
-[node name="movement_knockback" type="Node" parent="player_movement" unique_id=1190162567]
-script = ExtResource("6_8erm5")
-
-[node name="HealthComp" type="Node" parent="." unique_id=1141680338]
+[node name="health_component" type="Node" parent="." unique_id=1141680338]
 script = ExtResource("3_fkybt")
 
 [node name="sword" parent="." unique_id=922896719 instance=ExtResource("3_6t5aa")]

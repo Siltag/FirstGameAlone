@@ -8,7 +8,6 @@
 script = ExtResource("3_hkht2")
 knockbackForce = 150.0
 knockbackDuration = 0.12
-affects = 2
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6wag"]
@@ -63,6 +62,8 @@ region_enabled = true
 region_rect = Rect2(96, 96, 32, 32)
 
 [node name="damageArea" parent="Sprite2D" unique_id=1663025162 instance=ExtResource("2_hkht2")]
+collision_layer = 0
+collision_mask = 5
 damage = SubResource("Resource_4t0rs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/damageArea" unique_id=706865114]

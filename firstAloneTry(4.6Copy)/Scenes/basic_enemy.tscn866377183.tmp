@@ -4,13 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://crrwb56kg2jfa" path="res://Assets/BasicEnemy/Character 5.png" id="1_lal1l"]
 [ext_resource type="PackedScene" uid="uid://du2m346t0ivh8" path="res://Scenes/damage_area.tscn" id="2_r4aor"]
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="3_6kac6"]
-[ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_6cefa"]
-[ext_resource type="Script" uid="uid://120p0blcgfv7" path="res://Scripts/movement_comps/movement_ai_basic.gd" id="5_6pvwk"]
-
-[sub_resource type="Resource" id="Resource_6cefa"]
-script = ExtResource("3_6kac6")
-affects = 1
-metadata/_custom_type_script = "uid://cegahpd57bj34"
+[ext_resource type="Script" uid="uid://chxritfyalv1b" path="res://Scripts/movement_comp.gd" id="4_r4aor"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6cefa"]
 atlas = ExtResource("1_lal1l")
@@ -62,6 +56,12 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Resource" id="Resource_gw7x3"]
+script = ExtResource("3_6kac6")
+knockbackForce = 150.0
+knockbackDuration = 0.12
+metadata/_custom_type_script = "uid://cegahpd57bj34"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0pfe"]
 size = Vector2(21, 31)
 
@@ -70,7 +70,6 @@ size = Vector2(25.297184, 18.756153)
 
 [node name="BasicEnemy" type="CharacterBody2D" unique_id=2029116970]
 script = ExtResource("1_6kac6")
-damage = SubResource("Resource_6cefa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1238893916]
 sprite_frames = SubResource("SpriteFrames_62ls6")
@@ -79,17 +78,14 @@ autoplay = "Walk"
 
 [node name="damageArea" parent="." unique_id=802174665 instance=ExtResource("2_r4aor")]
 position = Vector2(-2, 0)
+damage = SubResource("Resource_gw7x3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damageArea" unique_id=500274286]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_f0pfe")
 
-[node name="Movement_ai_basic" type="Node" parent="." unique_id=734531241 node_paths=PackedStringArray("body")]
-script = ExtResource("5_6pvwk")
-body = NodePath("..")
-
-[node name="movement_base" type="Node" parent="." unique_id=133645351 node_paths=PackedStringArray("body", "sprite")]
-script = ExtResource("5_6cefa")
+[node name="movement_comp" type="Node" parent="." unique_id=552924950 node_paths=PackedStringArray("body", "sprite")]
+script = ExtResource("4_r4aor")
 body = NodePath("..")
 sprite = NodePath("../AnimatedSprite2D")
 
@@ -97,4 +93,3 @@ sprite = NodePath("../AnimatedSprite2D")
 position = Vector2(-2.2500002, 0.24999963)
 scale = Vector2(0.73130673, 1.5195013)
 shape = SubResource("RectangleShape2D_r4aor")
-debug_color = Color(0, 0.57419544, 0.8302819, 0.41960785)

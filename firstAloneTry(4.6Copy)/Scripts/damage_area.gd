@@ -1,10 +1,9 @@
 extends Area2D
 class_name DamageArea
-@export var damage: damage_profile
-
-signal damage_hit(damage: damage_profile, source_postion : Vector2)
-
+#@export var damage: damage_profile
+var damage
 
 
 func _on_body_entered(body: Node2D) -> void:
-	emit_signal("damage_hit", damage, global_position)
+	if body.has_method("take_damage"):
+		body.take_damage(damage, global_position)
