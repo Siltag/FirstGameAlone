@@ -14,8 +14,8 @@ signal hit
 func _ready() -> void:
 	damage_area.damage = damage
 	movement.speed = speed
-	health_comp.health = health
+	health_comp.base_health = health
+	health_comp.init(health)
 	
 func take_damage(dmg: damage_profile, source_position: Vector2):
 	hit.emit(dmg, source_position)
-	print("enemy hit")

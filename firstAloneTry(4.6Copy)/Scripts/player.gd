@@ -40,7 +40,9 @@ func take_damage(dmg : damage_profile, target_position: Vector2):
 
 
 func _ready() -> void:
-	
+
+
+
 	GameState.player = self
 	
 	print("base health: ", base_health)
@@ -55,7 +57,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("attack"):
-		sword_animation.play("slash")
+		if self.velocity.x > 0:
+			sword_animation.play("swing_right")
+		else:
+			sword_animation.play("swing_left")
 
 
 

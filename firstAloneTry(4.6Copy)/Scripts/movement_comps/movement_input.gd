@@ -1,6 +1,7 @@
 extends Node
 @onready var m_base: movement_base = $"../movement_base"
 @onready var sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
+@onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
 var speed :int
 var velocity : Vector2 = Vector2.ZERO
@@ -21,4 +22,8 @@ func _physics_process(delta: float) -> void:
 		move_toward(velocity.y, 0, speed))
 		if (velocity == Vector2.ZERO):
 			sprite.play("idle")
+	if velocity.x > 0:
+		animation_player.play("right")
+	else:
+		animation_player.play("left")
 	m_base.desired_velocity = velocity
