@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_8erm5"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="6_8erm5"]
 [ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
-[ext_resource type="Script" uid="uid://cyhhllmsynxto" path="res://Scenes/movement_dash_player.gd" id="7_8erm5"]
+[ext_resource type="Script" uid="uid://cyhhllmsynxto" path="res://Scripts/movement_comps/movement_dash_player.gd" id="7_8erm5"]
 
 [sub_resource type="Resource" id="Resource_3smsa"]
 script = ExtResource("2_x3wgy")
@@ -229,10 +229,9 @@ shape = SubResource("RectangleShape2D_cvnsp")
 [node name="movement_input" type="Node" parent="player_movement" unique_id=307075695]
 script = ExtResource("6_f1ek2")
 
-[node name="movement_base" type="Node" parent="player_movement" unique_id=467936099 node_paths=PackedStringArray("body", "sprite")]
+[node name="movement_base" type="Node" parent="player_movement" unique_id=467936099 node_paths=PackedStringArray("body")]
 script = ExtResource("5_8erm5")
 body = NodePath("../..")
-sprite = NodePath("../../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://beis6iule1bya"
 
 [node name="movement_knockback" type="Node" parent="player_movement" unique_id=1190162567]
