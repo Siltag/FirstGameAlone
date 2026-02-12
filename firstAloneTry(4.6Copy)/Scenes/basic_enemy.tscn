@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://120p0blcgfv7" path="res://Scripts/movement_comps/movement_ai_basic.gd" id="5_6pvwk"]
 [ext_resource type="Texture2D" uid="uid://djklrtfwxl2j6" path="res://Assets/Pixel UI pack 3/04.png" id="6_nk2ac"]
 [ext_resource type="Script" uid="uid://bq2h85wkjuo45" path="res://Scripts/health_component.gd" id="7_6pvwk"]
-[ext_resource type="Script" uid="uid://cnlgvhw1n05mf" path="res://Scenes/sprite_comp.gd" id="7_h7iov"]
+[ext_resource type="Script" uid="uid://cnlgvhw1n05mf" path="res://Scripts/sprite_comp.gd" id="7_h7iov"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="8_dhrsy"]
 
 [sub_resource type="Resource" id="Resource_6cefa"]
@@ -130,6 +130,69 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g4tdn")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": true,
 "name": &"death",
@@ -198,7 +261,7 @@ damage = SubResource("Resource_6cefa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1238893916]
 sprite_frames = SubResource("SpriteFrames_62ls6")
-animation = &"hurt"
+animation = &"death"
 autoplay = "walk"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="AnimatedSprite2D" unique_id=379731138]
@@ -240,6 +303,8 @@ metadata/_custom_type_script = "uid://bq2h85wkjuo45"
 [node name="SpriteComp" type="Node" parent="." unique_id=454263900 node_paths=PackedStringArray("sprite")]
 script = ExtResource("7_h7iov")
 sprite = NodePath("../AnimatedSprite2D")
+hurt_dr = 0.5
+death_dr = 1.0
 
 [node name="Movement" type="Node" parent="." unique_id=1046249040]
 
@@ -247,10 +312,9 @@ sprite = NodePath("../AnimatedSprite2D")
 script = ExtResource("5_6pvwk")
 body = NodePath("../..")
 
-[node name="movement_base" type="Node" parent="Movement" unique_id=133645351 node_paths=PackedStringArray("body", "sprite")]
+[node name="movement_base" type="Node" parent="Movement" unique_id=133645351 node_paths=PackedStringArray("body")]
 script = ExtResource("5_6cefa")
 body = NodePath("../..")
-sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="MovementKnockback" type="Node" parent="Movement" unique_id=696898690]
 script = ExtResource("8_dhrsy")
@@ -259,4 +323,5 @@ metadata/_custom_type_script = "uid://c6c5u7saucpqq"
 [connection signal="hit" from="." to="HealthComp" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="SpriteComp" method="_on_basic_enemy_hit"]
+[connection signal="died" from="HealthComp" to="SpriteComp" method="_on_health_comp_died"]
 [connection signal="timeout" from="HealthComp/death" to="HealthComp" method="_on_death_timeout"]

@@ -11,7 +11,7 @@ var bonus_health_percantage := 1
 var bonus_health_flat := 0
 
 
-
+signal died
 var _currentHP: int
 var current_health:= 100 : 
 	set(value):
@@ -22,8 +22,7 @@ var current_health:= 100 :
 		
 		if _currentHP <= 0 :
 			print(body.name, " died")
-			death.start()
-			sprite.play("death")
+			died.emit()
 		
 	get:
 		return _currentHP
@@ -40,16 +39,10 @@ func init(baseHP, _armor:= 0, percantage:= 1, flat:= 0):
 	current_health = get_max_hp(base_health,bonus_health_percantage,bonus_health_flat)
 	health_bar.max_value = current_health
 	health_bar.value = current_health
- 
 
-func take_damage(damage : damage_profile, _target_position: Vector2):
-	current_health -= (damage.amount - armor)
-	sprite.play("hurt")
-	
 
-func _on_basic_enemy_hit(dmg: damage_profile, source_location: Vector2) -> void:
-	take_damage(dmg, source_location)
-
+func _on_basic_enemy_hit(dmg: damage_profile, _source_location: Vector2) -> void:
+	current_health -= dmg.amount
 
 func _on_death_timeout() -> void:
 	body.queue_free()
