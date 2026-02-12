@@ -1,27 +1,55 @@
 extends Node
 class_name HealthComp
+@export var sprite : AnimatedSprite2D
+@export var body : CharacterBody2D
+@export var health_bar : TextureProgressBar
+@onready var death: Timer = $death
 
-@export var base_health := 100
-@export var armor := 0
+var base_health:= 40 
+var armor: int
+var bonus_health_percantage := 1
+var bonus_health_flat := 0
 
-var flat_bonus_health := 0
-var percentage_bonus_health := 1
 
-var max_health: int = (base_health * percentage_bonus_health) + flat_bonus_health
 
-var _currentHP
-var current_health: int :
+var _currentHP: int
+var current_health:= 100 : 
 	set(value):
-		_currentHP = clamp(value, 0 ,max_health)
+		_currentHP = clamp(value, 0 ,get_max_hp(base_health,bonus_health_percantage,bonus_health_flat))
 		print(_currentHP)
-		if _currentHP == 0:
-			print("you shit")
-			get_tree().reload_current_scene()
+		health_bar.value = _currentHP
+
+		
+		if _currentHP <= 0 :
+			print(body.name, " died")
+			death.start()
+			sprite.play("death")
+		
 	get:
 		return _currentHP
 
-func _ready() -> void:
-	current_health = max_health
+func get_max_hp(base: int, percentage:= 1.0, flat:= 0 ) -> float:
+	return (base * percentage) + flat
+	
+func init(baseHP, _armor:= 0, percantage:= 1, flat:= 0):
+	base_health = baseHP
+	armor = _armor
+	bonus_health_flat = flat
+	bonus_health_percantage = percantage
+	@warning_ignore("narrowing_conversion")
+	current_health = get_max_hp(base_health,bonus_health_percantage,bonus_health_flat)
+	health_bar.max_value = current_health
+	health_bar.value = current_health
+ 
 
-func _on_damage_hit(damage:damage_profile):
+func take_damage(damage : damage_profile, _target_position: Vector2):
 	current_health -= (damage.amount - armor)
+	sprite.play("hurt")
+	
+
+func _on_basic_enemy_hit(dmg: damage_profile, source_location: Vector2) -> void:
+	take_damage(dmg, source_location)
+
+
+func _on_death_timeout() -> void:
+	body.queue_free()
