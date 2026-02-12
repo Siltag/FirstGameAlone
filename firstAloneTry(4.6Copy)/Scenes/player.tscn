@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_8erm5"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="6_8erm5"]
 [ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
+[ext_resource type="Script" uid="uid://cyhhllmsynxto" path="res://Scenes/movement_dash_player.gd" id="7_8erm5"]
 
 [sub_resource type="Resource" id="Resource_3smsa"]
 script = ExtResource("2_x3wgy")
@@ -237,6 +238,12 @@ metadata/_custom_type_script = "uid://beis6iule1bya"
 [node name="movement_knockback" type="Node" parent="player_movement" unique_id=1190162567]
 script = ExtResource("6_8erm5")
 
+[node name="movement_dash_player" type="Node" parent="player_movement" unique_id=356586103 node_paths=PackedStringArray("m_base")]
+script = ExtResource("7_8erm5")
+m_base = NodePath("../movement_base")
+
+[node name="Timer" type="Timer" parent="player_movement/movement_dash_player" unique_id=98910838]
+
 [node name="Sword" parent="." unique_id=422714246 instance=ExtResource("3_6t5aa")]
 position = Vector2(15, -20)
 
@@ -245,5 +252,7 @@ collision_layer = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1541164075]
 libraries/ = SubResource("AnimationLibrary_tx1dd")
+
+[connection signal="timeout" from="player_movement/movement_dash_player/Timer" to="player_movement/movement_dash_player" method="_on_timer_timeout"]
 
 [editable path="Sword"]

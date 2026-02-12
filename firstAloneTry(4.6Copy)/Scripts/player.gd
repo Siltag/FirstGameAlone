@@ -34,7 +34,7 @@ func take_damage(dmg : damage_profile, target_position: Vector2):
 	
 	current_health -= (dmg.amount - armor)
 	
-	knockback.apply_knockback(damage.knockbackForce, damage.knockbackDuration, self, target_position)
+	knockback.apply_knockback(damage.knockbackForce, damage.knockbackDuration, self, move_speed, target_position)
 
 
 
@@ -54,7 +54,7 @@ func _ready() -> void:
 	damage_area.damage = damage
 	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("attack"):
 		if self.velocity.x > 0:

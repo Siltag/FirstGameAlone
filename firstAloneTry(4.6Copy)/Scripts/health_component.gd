@@ -11,6 +11,7 @@ var bonus_health_percantage := 1
 var bonus_health_flat := 0
 
 
+
 var _currentHP: int
 var current_health:= 100 : 
 	set(value):
@@ -35,13 +36,15 @@ func init(baseHP, _armor:= 0, percantage:= 1, flat:= 0):
 	armor = _armor
 	bonus_health_flat = flat
 	bonus_health_percantage = percantage
+	@warning_ignore("narrowing_conversion")
 	current_health = get_max_hp(base_health,bonus_health_percantage,bonus_health_flat)
 	health_bar.max_value = current_health
 	health_bar.value = current_health
+ 
 
-
-func take_damage(damage : damage_profile, target_position: Vector2):
+func take_damage(damage : damage_profile, _target_position: Vector2):
 	current_health -= (damage.amount - armor)
+	sprite.play("hurt")
 	
 
 func _on_basic_enemy_hit(dmg: damage_profile, source_location: Vector2) -> void:

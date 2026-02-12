@@ -13,6 +13,6 @@ var desired_velocity
 func _ready() -> void:
 	player = GameState.player
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	direction = (player.global_position - body.global_position).normalized()
 	m_base.desired_velocity = direction * speed

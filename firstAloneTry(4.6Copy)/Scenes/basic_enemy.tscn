@@ -8,38 +8,15 @@
 [ext_resource type="Script" uid="uid://120p0blcgfv7" path="res://Scripts/movement_comps/movement_ai_basic.gd" id="5_6pvwk"]
 [ext_resource type="Texture2D" uid="uid://djklrtfwxl2j6" path="res://Assets/Pixel UI pack 3/04.png" id="6_nk2ac"]
 [ext_resource type="Script" uid="uid://bq2h85wkjuo45" path="res://Scripts/health_component.gd" id="7_6pvwk"]
+[ext_resource type="Script" uid="uid://cnlgvhw1n05mf" path="res://Scenes/sprite_comp.gd" id="7_h7iov"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="8_dhrsy"]
 
 [sub_resource type="Resource" id="Resource_6cefa"]
 script = ExtResource("3_6kac6")
-knockbackForce = 150.0
+knockbackForce = 0.5
 knockbackDuration = 0.12
 affects = 1
 metadata/_custom_type_script = "uid://cegahpd57bj34"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6cefa"]
-atlas = ExtResource("1_lal1l")
-region = Rect2(0, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6pvwk"]
-atlas = ExtResource("1_lal1l")
-region = Rect2(64, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhrsy"]
-atlas = ExtResource("1_lal1l")
-region = Rect2(128, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nk2ac"]
-atlas = ExtResource("1_lal1l")
-region = Rect2(192, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7iov"]
-atlas = ExtResource("1_lal1l")
-region = Rect2(256, 192, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7d1f"]
-atlas = ExtResource("1_lal1l")
-region = Rect2(320, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_62ls6"]
 atlas = ExtResource("1_lal1l")
@@ -97,31 +74,32 @@ region = Rect2(128, 320, 64, 64)
 atlas = ExtResource("1_lal1l")
 region = Rect2(192, 320, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cefa"]
+atlas = ExtResource("1_lal1l")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pvwk"]
+atlas = ExtResource("1_lal1l")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhrsy"]
+atlas = ExtResource("1_lal1l")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk2ac"]
+atlas = ExtResource("1_lal1l")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7iov"]
+atlas = ExtResource("1_lal1l")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7d1f"]
+atlas = ExtResource("1_lal1l")
+region = Rect2(320, 192, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_62ls6"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6cefa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6pvwk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dhrsy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nk2ac")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h7iov")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n7d1f")
-}],
-"loop": true,
-"name": &"Walk",
-"speed": 10.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_62ls6")
@@ -170,8 +148,31 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t0fgp")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cefa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pvwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhrsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nk2ac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7iov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7d1f")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 10.0
 }]
 
@@ -197,8 +198,8 @@ damage = SubResource("Resource_6cefa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1238893916]
 sprite_frames = SubResource("SpriteFrames_62ls6")
-animation = &"death"
-autoplay = "Walk"
+animation = &"hurt"
+autoplay = "walk"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="AnimatedSprite2D" unique_id=379731138]
 anchors_preset = -1
@@ -216,7 +217,6 @@ texture_progress = SubResource("AtlasTexture_sby1u")
 position = Vector2(-2, 0)
 collision_layer = 0
 collision_mask = 2
-damage = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damageArea" unique_id=500274286]
 position = Vector2(-0.5, 0.5)
@@ -237,6 +237,10 @@ metadata/_custom_type_script = "uid://bq2h85wkjuo45"
 
 [node name="death" type="Timer" parent="HealthComp" unique_id=168392670]
 
+[node name="SpriteComp" type="Node" parent="." unique_id=454263900 node_paths=PackedStringArray("sprite")]
+script = ExtResource("7_h7iov")
+sprite = NodePath("../AnimatedSprite2D")
+
 [node name="Movement" type="Node" parent="." unique_id=1046249040]
 
 [node name="Movement_ai_basic" type="Node" parent="Movement" unique_id=734531241 node_paths=PackedStringArray("body")]
@@ -254,4 +258,5 @@ metadata/_custom_type_script = "uid://c6c5u7saucpqq"
 
 [connection signal="hit" from="." to="HealthComp" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]
+[connection signal="hit" from="." to="SpriteComp" method="_on_basic_enemy_hit"]
 [connection signal="timeout" from="HealthComp/death" to="HealthComp" method="_on_death_timeout"]

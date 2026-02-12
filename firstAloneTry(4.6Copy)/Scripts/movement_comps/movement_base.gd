@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	if sprite != null && body != GameState.player:
 		sprite.flip_h = body.velocity.x < 0
 	
-	if body.velocity != Vector2.ZERO && body == GameState.player :
-		sprite.play("run")
+	if body.velocity != Vector2.ZERO && body != GameState.player :
+		sprite.play("walk")
 	
 	body.move_and_slide()
