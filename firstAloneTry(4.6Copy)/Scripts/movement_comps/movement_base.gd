@@ -6,12 +6,18 @@ class_name movement_base
 var desired_velocity := Vector2.ZERO
 var override_velocity := Vector2.ZERO
 var override_duration := 0.0
+var alive := true
 
 func _physics_process(delta: float) -> void:
-	if override_duration > 0:
-		body.velocity = override_velocity
-		override_duration -= delta
-	else:
-		body.velocity = desired_velocity
+	if alive:
+		if override_duration > 0:
+			body.velocity = override_velocity
+			override_duration -= delta
+		else:
+			body.velocity = desired_velocity
 
+	else:
+		body.velocity = -body.velocity
 	body.move_and_slide()
+func _on_health_comp_died() -> void:
+	alive = false

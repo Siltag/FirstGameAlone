@@ -18,6 +18,7 @@ func _ready() -> void:
 	m_base.speed = speed
 	health_comp.base_health = health
 	health_comp.init(health)
+	
 	determine_spawn_location()
 
 
