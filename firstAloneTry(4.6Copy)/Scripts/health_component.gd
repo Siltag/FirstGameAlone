@@ -4,6 +4,9 @@ class_name HealthComp
 @export var body : CharacterBody2D
 @export var health_bar : TextureProgressBar
 @onready var death: Timer = $death
+@onready var label: Label = $Label
+@onready var floating_number: Timer = $"floating number"
+
 
 var base_health:= 40 
 var armor: int
@@ -16,7 +19,7 @@ var _currentHP: int
 var current_health:= 100 : 
 	set(value):
 		_currentHP = clamp(value, 0 ,get_max_hp(base_health,bonus_health_percantage,bonus_health_flat))
-		print(_currentHP)
+		#print(_currentHP) 
 		health_bar.value = _currentHP
 
 		
@@ -43,6 +46,13 @@ func init(baseHP, _armor:= 0, percantage:= 1, flat:= 0):
 
 func _on_basic_enemy_hit(dmg: damage_profile, _source_location: Vector2) -> void:
 	current_health -= dmg.amount
+	label.visible = true
+	label.text = str(dmg.amount)
+	floating_number.start()
 
 func _on_death_timeout() -> void:
 	body.queue_free()
+	
+	
+func _on_floating_number_timeout() -> void:
+	label.visible = false
