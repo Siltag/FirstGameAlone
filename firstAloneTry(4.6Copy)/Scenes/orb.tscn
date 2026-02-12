@@ -3,13 +3,12 @@
 [ext_resource type="Script" uid="uid://cm7rlnfdmh10b" path="res://Scripts/orb.gd" id="1_ryljl"]
 [ext_resource type="Texture2D" uid="uid://cqc6op5apm3iu" path="res://Assets/orb.png" id="2_4tb7o"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_75c1p"]
+radius = 6.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3x0a"]
 atlas = ExtResource("2_4tb7o")
 region = Rect2(0, 0, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gn4ky"]
-atlas = ExtResource("2_4tb7o")
-region = Rect2(100, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3w5g"]
 atlas = ExtResource("2_4tb7o")
@@ -35,10 +34,6 @@ region = Rect2(600, 0, 100, 100)
 atlas = ExtResource("2_4tb7o")
 region = Rect2(700, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5p587"]
-atlas = ExtResource("2_4tb7o")
-region = Rect2(800, 0, 100, 100)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_3akk5"]
 atlas = ExtResource("2_4tb7o")
 region = Rect2(900, 0, 100, 100)
@@ -48,9 +43,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r3x0a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gn4ky")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s3w5g")
@@ -71,29 +63,47 @@ animations = [{
 "texture": SubResource("AtlasTexture_ajoh1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5p587")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_3akk5")
 }],
 "loop": true,
 "name": &"tier1",
-"speed": 10.0
+"speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_75c1p"]
-radius = 6.0
 
 [node name="orb" type="Area2D" unique_id=126263261]
 script = ExtResource("1_ryljl")
-tier = null
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=627507448]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899339956]
+shape = SubResource("CircleShape2D_75c1p")
+
+[node name="Sprites" type="Node" parent="." unique_id=2081248294]
+
+[node name="TIER1" type="AnimatedSprite2D" parent="Sprites" unique_id=627507448]
+modulate = Color(0.003921569, 0.6, 1, 1)
+use_parent_material = true
 position = Vector2(-7.6293945e-06, 3.8146973e-06)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_21s5d")
 animation = &"tier1"
 autoplay = "tier1"
+frame_progress = 0.112668134
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899339956]
-shape = SubResource("CircleShape2D_75c1p")
+[node name="TIER2" type="AnimatedSprite2D" parent="Sprites" unique_id=1387986817]
+modulate = Color(0.003921569, 0.7607843, 0.42352942, 1)
+use_parent_material = true
+position = Vector2(-7.6293945e-06, 3.8146973e-06)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_21s5d")
+animation = &"tier1"
+autoplay = "tier1"
+frame_progress = 0.42893767
+
+[node name="TIER3" type="AnimatedSprite2D" parent="Sprites" unique_id=1753740651]
+modulate = Color(1, 0, 0, 1)
+use_parent_material = true
+position = Vector2(-7.6293945e-06, 3.8146973e-06)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_21s5d")
+animation = &"tier1"
+autoplay = "tier1"
+frame_progress = 0.42893767

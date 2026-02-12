@@ -3,6 +3,9 @@ class_name HealthComp
 @export var sprite : AnimatedSprite2D
 @export var body : CharacterBody2D
 @export var health_bar : TextureProgressBar
+@export var dmg_area: DamageArea
+@export var physical_body : CollisionShape2D
+
 @onready var death: Timer = $death
 @onready var label: Label = $Label
 @onready var floating_number: Timer = $"floating number"
@@ -26,7 +29,10 @@ var current_health:= 100 :
 		if _currentHP <= 0 :
 			print(body.name, " died")
 			died.emit()
-		
+			
+			physical_body.queue_free()
+			dmg_area.queue_free()
+			health_bar.queue_free()
 	get:
 		return _currentHP
 
@@ -49,10 +55,6 @@ func _on_basic_enemy_hit(dmg: damage_profile, _source_location: Vector2) -> void
 	label.visible = true
 	label.text = str(dmg.amount)
 	floating_number.start()
-
-func _on_death_timeout() -> void:
-	body.queue_free()
-	
 	
 func _on_floating_number_timeout() -> void:
 	label.visible = false

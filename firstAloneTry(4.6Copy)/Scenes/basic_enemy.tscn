@@ -11,11 +11,11 @@
 [ext_resource type="Script" uid="uid://cnlgvhw1n05mf" path="res://Scripts/sprite_comp.gd" id="7_h7iov"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="8_dhrsy"]
 
-[sub_resource type="Resource" id="Resource_6cefa"]
+[sub_resource type="Resource" id="Resource_h7iov"]
 script = ExtResource("3_6kac6")
-knockbackForce = 0.5
-knockbackDuration = 0.12
-affects = 1
+amount = 0
+knockbackForce = 1.0
+knockbackDuration = 0.1
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_62ls6"]
@@ -257,7 +257,8 @@ size = Vector2(25.297184, 18.756153)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_6kac6")
-damage = SubResource("Resource_6cefa")
+speed = 75
+damage = SubResource("Resource_h7iov")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1238893916]
 sprite_frames = SubResource("SpriteFrames_62ls6")
@@ -291,11 +292,13 @@ scale = Vector2(0.73130673, 1.5195013)
 shape = SubResource("RectangleShape2D_r4aor")
 debug_color = Color(0, 0.57419544, 0.8302819, 0.41960785)
 
-[node name="HealthComp" type="Node" parent="." unique_id=1585816900 node_paths=PackedStringArray("sprite", "body", "health_bar")]
+[node name="HealthComp" type="Node" parent="." unique_id=1585816900 node_paths=PackedStringArray("sprite", "body", "health_bar", "dmg_area", "physical_body")]
 script = ExtResource("7_6pvwk")
 sprite = NodePath("../AnimatedSprite2D")
 body = NodePath("..")
 health_bar = NodePath("../AnimatedSprite2D/TextureProgressBar")
+dmg_area = NodePath("../damageArea")
+physical_body = NodePath("../CollisionShape2D")
 metadata/_custom_type_script = "uid://bq2h85wkjuo45"
 
 [node name="death" type="Timer" parent="HealthComp" unique_id=168392670]
@@ -332,5 +335,5 @@ metadata/_custom_type_script = "uid://c6c5u7saucpqq"
 [connection signal="hit" from="." to="SpriteComp" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]
 [connection signal="died" from="HealthComp" to="SpriteComp" method="_on_health_comp_died"]
-[connection signal="timeout" from="HealthComp/death" to="HealthComp" method="_on_death_timeout"]
+[connection signal="died" from="HealthComp" to="Movement/movement_base" method="_on_health_comp_died"]
 [connection signal="timeout" from="HealthComp/floating number" to="HealthComp" method="_on_floating_number_timeout"]

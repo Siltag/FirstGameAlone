@@ -9,8 +9,11 @@
 [ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
 [ext_resource type="Script" uid="uid://cyhhllmsynxto" path="res://Scripts/movement_comps/movement_dash_player.gd" id="7_8erm5"]
 
-[sub_resource type="Resource" id="Resource_3smsa"]
+[sub_resource type="Resource" id="Resource_8erm5"]
 script = ExtResource("2_x3wgy")
+amount = 30
+knockbackForce = 0.75
+knockbackDuration = 0.3
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
@@ -212,7 +215,8 @@ _data = {
 collision_layer = 3
 collision_mask = 0
 script = ExtResource("1_cvnsp")
-damage = SubResource("Resource_3smsa")
+attack_speed = 1.5
+damage = SubResource("Resource_8erm5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
 position = Vector2(-1, -36)
@@ -243,11 +247,15 @@ m_base = NodePath("../movement_base")
 
 [node name="Timer" type="Timer" parent="player_movement/movement_dash_player" unique_id=98910838]
 
-[node name="Sword" parent="." unique_id=422714246 instance=ExtResource("3_6t5aa")]
+[node name="Sword" parent="." unique_id=422714246 node_paths=PackedStringArray("sprite") instance=ExtResource("3_6t5aa")]
 position = Vector2(15, -20)
+sprite = NodePath("../AnimatedSprite2D")
 
 [node name="DamageArea" parent="Sword/blade/Sprite2D" parent_id_path=PackedInt32Array(422714246, 1701591953) index="0" unique_id=1877580495]
 collision_layer = 4
+
+[node name="CollisionShape2D" parent="Sword/blade/Sprite2D/DamageArea" index="0" unique_id=2035564849]
+position = Vector2(0, -23.6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1541164075]
 libraries/ = SubResource("AnimationLibrary_tx1dd")
