@@ -300,8 +300,16 @@ metadata/_custom_type_script = "uid://bq2h85wkjuo45"
 
 [node name="death" type="Timer" parent="HealthComp" unique_id=168392670]
 
-[node name="SpriteComp" type="Node" parent="." unique_id=454263900 node_paths=PackedStringArray("sprite")]
+[node name="Label" type="Label" parent="HealthComp" unique_id=1769710779]
+offset_top = -8.0
+offset_right = 35.0
+offset_bottom = 15.0
+
+[node name="floating number" type="Timer" parent="HealthComp" unique_id=1519483732]
+
+[node name="SpriteComp" type="Node" parent="." unique_id=454263900 node_paths=PackedStringArray("body", "sprite")]
 script = ExtResource("7_h7iov")
+body = NodePath("..")
 sprite = NodePath("../AnimatedSprite2D")
 hurt_dr = 0.5
 death_dr = 1.0
@@ -321,7 +329,8 @@ script = ExtResource("8_dhrsy")
 metadata/_custom_type_script = "uid://c6c5u7saucpqq"
 
 [connection signal="hit" from="." to="HealthComp" method="_on_basic_enemy_hit"]
-[connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="SpriteComp" method="_on_basic_enemy_hit"]
+[connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]
 [connection signal="died" from="HealthComp" to="SpriteComp" method="_on_health_comp_died"]
 [connection signal="timeout" from="HealthComp/death" to="HealthComp" method="_on_death_timeout"]
+[connection signal="timeout" from="HealthComp/floating number" to="HealthComp" method="_on_floating_number_timeout"]

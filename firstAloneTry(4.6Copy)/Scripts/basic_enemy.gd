@@ -18,7 +18,27 @@ func _ready() -> void:
 	m_base.speed = speed
 	health_comp.base_health = health
 	health_comp.init(health)
-	
+	determine_spawn_location()
+
 
 func take_damage(dmg: damage_profile, source_position: Vector2):
 	hit.emit(dmg, source_position)
+
+
+func determine_spawn_location():
+	var viewport_size = get_viewport_rect().size
+	var spawn_direction = ["top","bottom","left","right"].pick_random()
+	
+	match spawn_direction:
+		"top":
+			global_position.y-=viewport_size.y
+			global_position.x+= randf_range(-viewport_size.x,viewport_size.x)
+		"bottom":
+			global_position.y+=viewport_size.y
+			global_position.x+= randf_range(-viewport_size.x,viewport_size.x)
+		"left":
+			global_position.x-=viewport_size.x
+			global_position.y+= randf_range(-viewport_size.y,viewport_size.y)
+		"right":
+			global_position.x+=viewport_size.x
+			global_position.y+= randf_range(-viewport_size.y,viewport_size.y)

@@ -1,6 +1,7 @@
 extends Node
 class_name SpriteNode
 
+@export var body : CharacterBody2D
 @export var sprite : AnimatedSprite2D
 @export var hurt_dr : float
 @export var death_dr : float
@@ -24,14 +25,20 @@ func _process(delta: float) -> void:
 		sprite.play("hurt")
 		hurt_remain -= delta
 	
-	else:
+	elif body.velocity != Vector2.ZERO:
 		sprite.play("walk")
-
+	
+	#else:
+		#sprite.play("idle")
+	
+	if body != GameState.player:
+		sprite.flip_h = (body.velocity.x < 0.0)
+	else:
+		sprite.flip_h = (body.velocity.x > 0.0)
+	
 func _on_basic_enemy_hit(_dmg, _position):
-	print("damn")
 	hurt_remain = hurt_dr
 
 
 func _on_health_comp_died() -> void:
-	print(owner.name, " died")
 	death_remain = death_dr

@@ -3,6 +3,7 @@ extends Node
 @onready var sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var m_dash: Node = $"../movement_dash_player"
+@onready var player: CharacterBody2D = $"../.."
 
 var speed :int
 var velocity : Vector2 = Vector2.ZERO
@@ -24,9 +25,9 @@ func _physics_process(delta: float) -> void:
 		if (velocity == Vector2.ZERO):
 			sprite.play("idle")
 	
-	if velocity.x > 0:
+	if player.velocity.x > 0:
 		animation_player.play("right")
-	elif velocity.x < 0:
+	elif player.velocity.x < 0:
 		animation_player.play("left")
 	m_base.desired_velocity = velocity
 	m_dash.normal_velocity = velocity

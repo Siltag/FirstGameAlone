@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://4jyh5fci36mp" path="res://Assets/TileSets/cursedlands/Tiled_files/Objects.png" id="5_344ge"]
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://b18hnxliauy5f" path="res://Scenes/basic_enemy.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://l88fmru1v1ty" path="res://Scenes/enemy_spawner.tscn" id="7_6bp64"]
 
 [sub_resource type="Resource" id="Resource_ynf5e"]
 script = ExtResource("5_kry3j")
@@ -195,6 +196,10 @@ position = Vector2(-182, -8)
 
 [node name="BasicEnemy2" parent="." unique_id=1365347993 instance=ExtResource("6_21xkr")]
 position = Vector2(194, -141)
+
+[node name="Enemy Spawner" parent="." unique_id=28377331 instance=ExtResource("7_6bp64")]
+enemy = ExtResource("6_21xkr")
+enemy_spawn_cooldown = 0.1
 
 [editable path="Player"]
 [editable path="Player/Sword"]
