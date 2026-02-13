@@ -14,7 +14,7 @@ var animation
 
 func init(_tier: int):
 	tier = _tier
-	exp_amount = base_exp * tier * tier * randf()
+	exp_amount = snapped(base_exp * tier * tier * randf(), 0.1)
 	match _tier:
 		1:
 			tier_1.visible = true

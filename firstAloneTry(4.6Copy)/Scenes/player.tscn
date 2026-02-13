@@ -8,11 +8,15 @@
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="6_8erm5"]
 [ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
 [ext_resource type="Script" uid="uid://cyhhllmsynxto" path="res://Scripts/movement_comps/movement_dash_player.gd" id="7_8erm5"]
+[ext_resource type="Texture2D" uid="uid://cq8tawsvecpy" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry1.png" id="9_pu2lt"]
+[ext_resource type="Texture2D" uid="uid://nwt1pkiw645r" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry2.png" id="10_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://dxtmuley0gd2p" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry3.png" id="11_7dp3o"]
+[ext_resource type="Texture2D" uid="uid://chpv2mpa2et24" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry4.png" id="12_h4iuc"]
 
 [sub_resource type="Resource" id="Resource_8erm5"]
 script = ExtResource("2_x3wgy")
 amount = 30
-knockbackForce = 0.75
+knockbackForce = 5.0
 knockbackDuration = 0.3
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
@@ -211,10 +215,34 @@ _data = {
 &"right": SubResource("Animation_f1ek2")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=163753771]
-collision_layer = 3
-collision_mask = 0
+[sub_resource type="SpriteFrames" id="SpriteFrames_fd4e3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_pu2lt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ukyrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7dp3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_h4iuc")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=163753771 node_paths=PackedStringArray("blood")]
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_cvnsp")
+blood = NodePath("blood")
 damage = SubResource("Resource_8erm5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
@@ -261,6 +289,16 @@ position = Vector2(0, -23.6)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1541164075]
 libraries/ = SubResource("AnimationLibrary_tx1dd")
 
+[node name="immunity_frames" type="Timer" parent="." unique_id=64579833]
+wait_time = 0.5
+
+[node name="blood" type="AnimatedSprite2D" parent="." unique_id=631159485]
+position = Vector2(0, -24)
+sprite_frames = SubResource("SpriteFrames_fd4e3")
+frame = 4
+frame_progress = 1.0
+
 [connection signal="timeout" from="player_movement/movement_dash_player/Timer" to="player_movement/movement_dash_player" method="_on_timer_timeout"]
+[connection signal="timeout" from="immunity_frames" to="." method="_on_immunity_frames_timeout"]
 
 [editable path="Sword"]
