@@ -28,7 +28,7 @@ var current_health:= 100 :
 	set(value):
 		_currentHP = clamp(value, 0 ,max_health)
 		
-		print(_currentHP)
+		#print(_currentHP)
 		
 		if(_currentHP == 0):
 			print("u shit")
@@ -39,6 +39,23 @@ var current_health:= 100 :
 func take_damage(dmg : damage_profile, target_position: Vector2):
 	current_health -= (dmg.amount - armor)
 	knockback.apply_knockback(damage.knockbackForce, damage.knockbackDuration, self, move_speed, target_position)
+
+#endregion
+
+#region exp
+
+var _exp := 0.0
+var expi := 0.0 :
+	set(value):
+		_exp = value
+		print(_exp)
+	get:
+		return _exp
+
+func collect_orb(_exp_amount : float):
+	expi += _exp_amount
+	print(_exp_amount)
+	expi += 10
 
 #endregion
 
