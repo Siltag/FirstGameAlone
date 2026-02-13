@@ -31,7 +31,9 @@ func take_damage(dmg: damage_profile, source_position: Vector2):
 
 
 func determine_spawn_location():
+	var player = GameState.player
 	var viewport_size = get_viewport_rect().size
+	viewport_size += player.global_position
 	var spawn_direction = ["top","bottom","left","right"].pick_random()
 	
 	match spawn_direction:

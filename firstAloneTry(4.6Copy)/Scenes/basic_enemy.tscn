@@ -16,7 +16,7 @@
 [sub_resource type="Resource" id="Resource_h7iov"]
 script = ExtResource("3_6kac6")
 amount = 2
-knockbackForce = 1.0
+knockbackForce = 0.1
 knockbackDuration = 0.1
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
