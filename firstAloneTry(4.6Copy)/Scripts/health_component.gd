@@ -5,8 +5,10 @@ class_name HealthComp
 @export var health_bar : TextureProgressBar
 @export var dmg_area: DamageArea
 @export var physical_body : CollisionShape2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $"../AnimatedSprite2D"
 
-@onready var death: Timer = $death
+
+
 @onready var label: Label = $Label
 @onready var floating_number: Timer = $"floating number"
 
@@ -22,17 +24,10 @@ var _currentHP: int
 var current_health:= 100 : 
 	set(value):
 		_currentHP = clamp(value, 0 ,get_max_hp(base_health,bonus_health_percantage,bonus_health_flat))
-		#print(_currentHP) 
 		health_bar.value = _currentHP
-
 		
 		if _currentHP <= 0 :
-			print(body.name, " died")
 			died.emit()
-			
-			physical_body.queue_free()
-			dmg_area.queue_free()
-			health_bar.queue_free()
 	get:
 		return _currentHP
 

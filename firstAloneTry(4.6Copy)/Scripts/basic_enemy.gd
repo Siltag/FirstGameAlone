@@ -4,10 +4,14 @@ extends CharacterBody2D
 @export var speed := 100
 @export var damage : damage_profile
 
+@export var drop : PackedScene
+@export var drop_tier : int
+
 @onready var health_comp: HealthComp = $HealthComp
 @onready var damage_area: DamageArea = $damageArea
 @onready var m_base: movement_ai_basic = $Movement/Movement_ai_basic
 @onready var m_knockback: MovementKnockback = $Movement/MovementKnockback
+@onready var physical_body: CollisionShape2D = $CollisionShape2D
 
 
 signal hit

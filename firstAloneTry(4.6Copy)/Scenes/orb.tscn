@@ -76,19 +76,19 @@ script = ExtResource("1_ryljl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899339956]
 shape = SubResource("CircleShape2D_75c1p")
 
-[node name="Sprites" type="Node" parent="." unique_id=2081248294]
+[node name="Sprites" type="Node2D" parent="." unique_id=2078599481]
 
 [node name="TIER1" type="AnimatedSprite2D" parent="Sprites" unique_id=627507448]
+visible = false
 modulate = Color(0.003921569, 0.6, 1, 1)
 use_parent_material = true
-position = Vector2(-7.6293945e-06, 3.8146973e-06)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_21s5d")
 animation = &"tier1"
 autoplay = "tier1"
-frame_progress = 0.112668134
 
 [node name="TIER2" type="AnimatedSprite2D" parent="Sprites" unique_id=1387986817]
+visible = false
 modulate = Color(0.003921569, 0.7607843, 0.42352942, 1)
 use_parent_material = true
 position = Vector2(-7.6293945e-06, 3.8146973e-06)
@@ -99,9 +99,9 @@ autoplay = "tier1"
 frame_progress = 0.42893767
 
 [node name="TIER3" type="AnimatedSprite2D" parent="Sprites" unique_id=1753740651]
+visible = false
 modulate = Color(1, 0, 0, 1)
 use_parent_material = true
-position = Vector2(-7.6293945e-06, 3.8146973e-06)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_21s5d")
 animation = &"tier1"
