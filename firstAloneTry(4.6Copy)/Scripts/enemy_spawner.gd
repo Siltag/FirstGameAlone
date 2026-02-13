@@ -13,4 +13,5 @@ func _on_timer_timeout() -> void:
 	enemy_spawner()
 	
 func enemy_spawner():
-	add_child(enemy.instantiate())
+	var  enem = enemy.instantiate()
+	add_sibling(enem)

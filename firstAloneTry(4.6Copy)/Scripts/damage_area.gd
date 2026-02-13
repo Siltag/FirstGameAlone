@@ -1,6 +1,7 @@
 extends Area2D
 class_name DamageArea
-@export var damage: damage_profile
+
+var damage : damage_profile
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)

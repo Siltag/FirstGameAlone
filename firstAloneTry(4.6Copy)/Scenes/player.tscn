@@ -215,7 +215,6 @@ _data = {
 collision_layer = 3
 collision_mask = 0
 script = ExtResource("1_cvnsp")
-attack_speed = 1.5
 damage = SubResource("Resource_8erm5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
@@ -247,9 +246,11 @@ m_base = NodePath("../movement_base")
 
 [node name="Timer" type="Timer" parent="player_movement/movement_dash_player" unique_id=98910838]
 
-[node name="Sword" parent="." unique_id=422714246 node_paths=PackedStringArray("sprite") instance=ExtResource("3_6t5aa")]
+[node name="Sword" parent="." unique_id=422714246 instance=ExtResource("3_6t5aa")]
 position = Vector2(15, -20)
-sprite = NodePath("../AnimatedSprite2D")
+
+[node name="blade" parent="Sword" index="0" unique_id=997916396 node_paths=PackedStringArray("owner_sprite")]
+owner_sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="DamageArea" parent="Sword/blade/Sprite2D" parent_id_path=PackedInt32Array(422714246, 1701591953) index="0" unique_id=1877580495]
 collision_layer = 4

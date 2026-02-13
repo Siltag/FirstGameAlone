@@ -4,16 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://crrwb56kg2jfa" path="res://Assets/BasicEnemy/Character 5.png" id="1_lal1l"]
 [ext_resource type="PackedScene" uid="uid://du2m346t0ivh8" path="res://Scenes/damage_area.tscn" id="2_r4aor"]
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="3_6kac6"]
+[ext_resource type="PackedScene" uid="uid://c3sph4bfewk31" path="res://Scenes/orb.tscn" id="3_n7d1f"]
 [ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_6cefa"]
 [ext_resource type="Script" uid="uid://120p0blcgfv7" path="res://Scripts/movement_comps/movement_ai_basic.gd" id="5_6pvwk"]
 [ext_resource type="Texture2D" uid="uid://djklrtfwxl2j6" path="res://Assets/Pixel UI pack 3/04.png" id="6_nk2ac"]
 [ext_resource type="Script" uid="uid://bq2h85wkjuo45" path="res://Scripts/health_component.gd" id="7_6pvwk"]
 [ext_resource type="Script" uid="uid://cnlgvhw1n05mf" path="res://Scripts/sprite_comp.gd" id="7_h7iov"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="8_dhrsy"]
+[ext_resource type="Script" uid="uid://od4d8vrltexl" path="res://Scripts/death_comp.gd" id="12_62ls6"]
 
 [sub_resource type="Resource" id="Resource_h7iov"]
 script = ExtResource("3_6kac6")
-amount = 0
+amount = 2
 knockbackForce = 1.0
 knockbackDuration = 0.1
 metadata/_custom_type_script = "uid://cegahpd57bj34"
@@ -257,8 +259,10 @@ size = Vector2(25.297184, 18.756153)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_6kac6")
-speed = 75
+speed = 150
 damage = SubResource("Resource_h7iov")
+drop = ExtResource("3_n7d1f")
+drop_tier = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1238893916]
 sprite_frames = SubResource("SpriteFrames_62ls6")
@@ -301,8 +305,6 @@ dmg_area = NodePath("../damageArea")
 physical_body = NodePath("../CollisionShape2D")
 metadata/_custom_type_script = "uid://bq2h85wkjuo45"
 
-[node name="death" type="Timer" parent="HealthComp" unique_id=168392670]
-
 [node name="Label" type="Label" parent="HealthComp" unique_id=1769710779]
 offset_top = -8.0
 offset_right = 35.0
@@ -315,7 +317,6 @@ script = ExtResource("7_h7iov")
 body = NodePath("..")
 sprite = NodePath("../AnimatedSprite2D")
 hurt_dr = 0.5
-death_dr = 1.0
 
 [node name="Movement" type="Node" parent="." unique_id=1046249040]
 
@@ -331,9 +332,21 @@ body = NodePath("../..")
 script = ExtResource("8_dhrsy")
 metadata/_custom_type_script = "uid://c6c5u7saucpqq"
 
+[node name="DeathComp" type="Node" parent="." unique_id=589247681 node_paths=PackedStringArray("sprite", "physical_body", "health_bar", "dmg_area")]
+script = ExtResource("12_62ls6")
+sprite = NodePath("../AnimatedSprite2D")
+drop = ExtResource("3_n7d1f")
+physical_body = NodePath("../CollisionShape2D")
+health_bar = NodePath("../AnimatedSprite2D/TextureProgressBar")
+dmg_area = NodePath("../damageArea")
+
+[node name="Timer" type="Timer" parent="DeathComp" unique_id=1378990887]
+
 [connection signal="hit" from="." to="HealthComp" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="SpriteComp" method="_on_basic_enemy_hit"]
 [connection signal="hit" from="." to="Movement/MovementKnockback" method="_on_basic_enemy_hit"]
 [connection signal="died" from="HealthComp" to="SpriteComp" method="_on_health_comp_died"]
 [connection signal="died" from="HealthComp" to="Movement/movement_base" method="_on_health_comp_died"]
+[connection signal="died" from="HealthComp" to="DeathComp" method="_on_health_comp_died"]
 [connection signal="timeout" from="HealthComp/floating number" to="HealthComp" method="_on_floating_number_timeout"]
+[connection signal="timeout" from="DeathComp/Timer" to="DeathComp" method="_on_timer_timeout"]
