@@ -6,7 +6,7 @@ class_name Orb
 @onready var tier_3: AnimatedSprite2D = $Sprites/TIER3
 
 var tier := 3
-var base_exp := 1.0
+var base_exp := 10.0
 
 
 var exp_amount: float
@@ -22,3 +22,8 @@ func init(_tier: int):
 			tier_2.visible = true
 		3:
 			tier_3.visible = true
+
+
+func _on_body_entered(body: Node2D) -> void:
+	body.collect_orb(exp_amount)
+	queue_free()
