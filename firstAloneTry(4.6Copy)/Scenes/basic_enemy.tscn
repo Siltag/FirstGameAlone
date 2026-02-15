@@ -259,6 +259,7 @@ size = Vector2(25.297184, 18.756153)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_6kac6")
+health = null
 speed = 150
 damage = SubResource("Resource_h7iov")
 drop = ExtResource("3_n7d1f")
