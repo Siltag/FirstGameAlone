@@ -141,7 +141,7 @@ tile_set = SubResource("TileSet_wsu2k")
 
 [node name="Enemy Spawner" parent="." unique_id=28377331 instance=ExtResource("7_6bp64")]
 enemy = ExtResource("6_21xkr")
-enemy_spawn_cooldown = 0.2
+enemy_spawn_cooldown = 0.1
 
 [node name="orb" parent="." unique_id=126263261 instance=ExtResource("6_6bp64")]
 position = Vector2(-94, 79)

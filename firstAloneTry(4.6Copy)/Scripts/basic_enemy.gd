@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var health := 100
-@export var speed := 100
+@export var health : float = 100
+@export var speed : int = 100
 @export var damage : damage_profile
 
 @export var drop : PackedScene
@@ -26,15 +26,15 @@ func _ready() -> void:
 	determine_spawn_location()
 
 
-func take_damage(dmg: damage_profile, source_position: Vector2):
+func take_damage(dmg: damage_profile, source_position: Vector2) -> void:
 	hit.emit(dmg, source_position)
 
 
-func determine_spawn_location():
-	var player = GameState.player
-	var viewport_size = get_viewport_rect().size
+func determine_spawn_location() -> void:
+	var player : CharacterBody2D = GameState.player
+	var viewport_size : Vector2 = get_viewport_rect().size * 2
 	viewport_size += player.global_position
-	var spawn_direction = ["top","bottom","left","right"].pick_random()
+	var spawn_direction : String = ["top","bottom","left","right"].pick_random()
 	
 	match spawn_direction:
 		"top":

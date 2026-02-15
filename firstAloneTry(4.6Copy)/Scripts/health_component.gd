@@ -13,17 +13,17 @@ class_name HealthComp
 @onready var floating_number: Timer = $"floating number"
 
 
-var base_health:= 40 
+var base_health: float = 40 
 var armor: int
-var bonus_health_percantage := 1
-var bonus_health_flat := 0
+var bonus_health_percantage : float = 1
+var bonus_health_flat : int = 0
 
 
 signal died
-var _currentHP: int
-var current_health:= 100 : 
+var _currentHP: float
+var current_health: float = 100 : 
 	set(value):
-		_currentHP = clamp(value, 0 ,get_max_hp(base_health,bonus_health_percantage,bonus_health_flat))
+		_currentHP = clamp(value, 0.0 ,get_max_hp(base_health,bonus_health_percantage,bonus_health_flat))
 		health_bar.value = _currentHP
 		
 		if _currentHP <= 0 :
@@ -31,15 +31,14 @@ var current_health:= 100 :
 	get:
 		return _currentHP
 
-func get_max_hp(base: int, percentage:= 1.0, flat:= 0 ) -> float:
+func get_max_hp(base: float, percentage: float = 1.0, flat: int = 0 ) -> float:
 	return (base * percentage) + flat
 	
-func init(baseHP, _armor:= 0, percantage:= 1, flat:= 0):
+func init(baseHP : float, _armor: int = 0, percantage: float = 1, flat: int = 0) -> void:
 	base_health = baseHP
 	armor = _armor
 	bonus_health_flat = flat
 	bonus_health_percantage = percantage
-	@warning_ignore("narrowing_conversion")
 	current_health = get_max_hp(base_health,bonus_health_percantage,bonus_health_flat)
 	health_bar.max_value = current_health
 	health_bar.value = current_health

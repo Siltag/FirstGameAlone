@@ -10,24 +10,26 @@ extends CharacterBody2D
 @export var blood: AnimatedSprite2D
 
 
-@export var base_health := 100
-@export var armor := 0
-@export var move_speed := 200
-@export var attack_speed := 1.0 
-@export var cooldown:= 1.0
+@export var base_health : int = 100
+@export var armor : int = 0
+@export var move_speed : int = 200
+@export var attack_speed : float = 1.0 
+@export var cooldown: float = 1.0
 
 
 @export var damage: damage_profile
 
 
 #region Health
-var flat_bonus_health := 0
-var percentage_bonus_health := 1
+var flat_bonus_health : int = 0
+var percentage_bonus_health : float = 1
 
-var max_health: int = (base_health * percentage_bonus_health) + flat_bonus_health 
-
-var _currentHP
-var current_health:= 100 : 
+var max_health: float = (base_health * percentage_bonus_health) + flat_bonus_health 
+#
+# GET MAX HP FUNCTION NEEDED
+#
+var _currentHP : float
+var current_health: float = 100 : 
 	set(value):
 		_currentHP = clamp(value, 0 ,max_health)
 		
@@ -39,7 +41,7 @@ var current_health:= 100 :
 	get:
 		return _currentHP
 
-func take_damage(dmg : damage_profile, target_position: Vector2):
+func take_damage(dmg : damage_profile, target_position: Vector2) -> void:
 	current_health -= (dmg.amount - armor)
 	knockback.apply_knockback(dmg.knockbackForce, dmg.knockbackDuration, self, move_speed, target_position)
 	collision_layer = 256
@@ -51,15 +53,15 @@ func take_damage(dmg : damage_profile, target_position: Vector2):
 
 #region exp
 
-var _exp := 0.0
-var expi := 0.0 :
+var _exp : float= 0.0
+var expi : float = 0.0 :
 	set(value):
 		_exp = value
 		print("Your exp: ",_exp)
 	get:
 		return _exp
 
-func collect_orb(_exp_amount : float):
+func collect_orb(_exp_amount : float) -> void:
 	expi += _exp_amount
 	expi += 10
 

@@ -3,7 +3,7 @@ class_name DeathComp
 
 @export var sprite : AnimatedSprite2D
 @export var drop : PackedScene
-@export var drop_tier := 1
+@export var drop_tier : int = 1
 @export var physical_body : CollisionShape2D
 @export var health_bar : TextureProgressBar
 @export var dmg_area : DamageArea
@@ -11,13 +11,13 @@ class_name DeathComp
 @onready var timer: Timer = $Timer
 
 
-var alive := true
-var death_dur := 2.0
-var death_started := false
+var alive : bool = true
+var death_dur : float = 2.0
+var death_started : bool = false
 
 
 
-func _on_health_comp_died():
+func _on_health_comp_died() -> void:
 	sprite.play("death")
 
 	health_bar.queue_free()
@@ -25,7 +25,7 @@ func _on_health_comp_died():
 	owner.collision_layer = 0
 	owner.collision_mask = 0
 
-	var death_pos = owner.global_position
+	var death_pos : Vector2 = owner.global_position
 	call_deferred("_spawn_orb", death_pos)
 	timer.start()
 
@@ -33,7 +33,7 @@ func _on_health_comp_died():
 
 
 
-func _spawn_orb(pos: Vector2):
+func _spawn_orb(pos: Vector2) -> void:
 	var orb: Node2D = drop.instantiate()
 	owner.get_parent().add_child(orb)
 	orb.global_position = pos

@@ -12,7 +12,7 @@ var velocity : Vector2 = Vector2.ZERO
 func _physics_process(delta: float) -> void:
 	
 	
-	var move_input = Vector2(Input.get_action_strength("moveRight")-Input.get_action_strength("moveLeft"), 
+	var move_input: Vector2 = Vector2(Input.get_action_strength("moveRight")-Input.get_action_strength("moveLeft"), 
 	Input.get_action_strength("moveDown")-Input.get_action_strength("moveUp")).normalized()
 	
 	if move_input != Vector2.ZERO:

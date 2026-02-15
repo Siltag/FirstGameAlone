@@ -3,10 +3,10 @@ class_name movement_base
 
 @export var body : CharacterBody2D
 
-var desired_velocity := Vector2.ZERO
-var override_velocity := Vector2.ZERO
-var override_duration := 0.0
-var alive := true
+var desired_velocity : Vector2 = Vector2.ZERO
+var override_velocity : Vector2 = Vector2.ZERO
+var override_duration : float = 0.0
+var alive : bool = true
 
 func _physics_process(delta: float) -> void:
 	if alive:
