@@ -5,9 +5,9 @@ class_name SpriteNode
 @export var sprite : AnimatedSprite2D
 @export var hurt_dr : float
 
-var hurt_remain := 0.0
+var hurt_remain : float = 0.0
 
-var alive := true
+var alive : bool = true
 
 func _ready() -> void:
 	pass
@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 	else:
 		sprite.flip_h = (body.velocity.x > 0.0)
 	
-func _on_basic_enemy_hit(_dmg, _position):
+func _on_basic_enemy_hit(_dmg: damage_profile, _position: Vector2) -> void:
 	hurt_remain = hurt_dr
 
 

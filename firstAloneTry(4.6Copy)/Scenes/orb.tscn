@@ -87,7 +87,6 @@ use_parent_material = true
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_21s5d")
 animation = &"tier1"
-autoplay = "tier1"
 
 [node name="TIER2" type="AnimatedSprite2D" parent="Sprites" unique_id=1387986817]
 visible = false
@@ -97,7 +96,6 @@ position = Vector2(-7.6293945e-06, 3.8146973e-06)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_21s5d")
 animation = &"tier1"
-autoplay = "tier1"
 frame_progress = 0.42893767
 
 [node name="TIER3" type="AnimatedSprite2D" parent="Sprites" unique_id=1753740651]
@@ -107,7 +105,6 @@ use_parent_material = true
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_21s5d")
 animation = &"tier1"
-autoplay = "tier1"
 frame_progress = 0.42893767
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

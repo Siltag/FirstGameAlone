@@ -3,10 +3,10 @@ class_name movement_ai_basic
 
 @export var body: CharacterBody2D
 
-var player
+var player : CharacterBody2D
 var direction : Vector2
-var speed
-var desired_velocity
+var speed : int
+var desired_velocity : Vector2
 
 @onready var m_base: movement_base = $"../movement_base"
 

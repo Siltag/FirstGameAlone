@@ -3,10 +3,10 @@ class_name MovementKnockback
 @onready var m_base: movement_base = $"../movement_base"
 #@onready var body: CharacterBody2D = $"../.."
 
-var knockback_velocity:= Vector2.ZERO
+var knockback_velocity: Vector2 = Vector2.ZERO
 
 
-func apply_knockback(force: float, duration: float,target: CharacterBody2D, target_speed: int, source_position: Vector2) :
+func apply_knockback(force: float, duration: float,target: CharacterBody2D, target_speed: int, source_position: Vector2) -> void:
 	knockback_velocity = (target.global_position - source_position).normalized() * force * target_speed
 	
 	m_base.override_velocity = knockback_velocity

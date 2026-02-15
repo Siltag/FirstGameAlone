@@ -9,10 +9,10 @@ extends Node2D
 
 
 #region stat setters
-var can_spin := true
-var base_cooldown := 5
-var _cooldown:= 1.0
-var cooldown := 1.0 :
+var can_spin : bool= true
+var base_cooldown : int = 5
+var _cooldown: float = 1.0
+var cooldown : float = 1.0 :
 	set (value):
 		_cooldown = value
 		if spin_timer:
@@ -21,7 +21,7 @@ var cooldown := 1.0 :
 		return _cooldown
  
 #var base_attack_speed := 1
-var _attack_speed
+var _attack_speed : float
 var attack_speed: float :
 	set(value):
 		_attack_speed = value
@@ -41,7 +41,7 @@ var init_dmg : damage_profile
 var init_as : float
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
 		if owner_sprite.flip_h:
 			sword_animation.play("swing_right")

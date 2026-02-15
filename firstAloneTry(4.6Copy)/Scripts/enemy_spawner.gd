@@ -12,6 +12,6 @@ func _ready() -> void:
 func _on_timer_timeout() -> void:
 	enemy_spawner()
 	
-func enemy_spawner():
-	var  enem = enemy.instantiate()
+func enemy_spawner()-> void:
+	var enem : Node2D = enemy.instantiate()
 	add_sibling(enem)
