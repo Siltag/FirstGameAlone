@@ -238,11 +238,10 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=163753771 node_paths=PackedStringArray("blood")]
+[node name="Player" type="CharacterBody2D" unique_id=163753771]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_cvnsp")
-blood = NodePath("blood")
 damage = SubResource("Resource_8erm5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
