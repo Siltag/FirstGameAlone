@@ -17,32 +17,15 @@ extends CharacterBody2D
 @export var attack_speed : float = 1.0 
 @export var cooldown: float = 1.0
 
-
 @export var damage: damage_profile
 
 
 #region Health
-var new_health: float = base_health
-var flat_bonus_health : int = 0
-
-var _perc: float = 1
-var percentage_bonus_health : float = 1 :
-	set(value):
-		var current_percentage: float = current_health/new_health 
-		_perc = clamp(value, 0.1, 10.0)
-		current_health = current_percentage * get_max_hp(new_health,_perc,flat_bonus_health)
-		new_health = get_max_hp(new_health,_perc,flat_bonus_health)
-	get:
-		return _perc
-
-func get_max_hp(baseHP: float, percentage: float, flat :int) -> float:
-	return (baseHP*percentage) + flat
-
-
+var max_health: float = base_health
 var _currentHP : float
 var current_health: float = 100 : 
 	set(value):
-		_currentHP = clamp(value, 0 ,get_max_hp(new_health,percentage_bonus_health,flat_bonus_health))
+		_currentHP = clamp(value, 0 ,max_health)
 		
 		print(_currentHP)
 		
@@ -53,13 +36,36 @@ var current_health: float = 100 :
 		return _currentHP
 
 func take_damage(dmg : damage_profile, target_position: Vector2) -> void:
-	current_health -= (dmg.amount - armor)
+	if (dmg.amount > armor):
+		current_health -= (dmg.amount - armor)
 	knockback.apply_knockback(dmg.knockbackForce, dmg.knockbackDuration, self, move_speed, target_position)
 	collision_layer = 256
 	iFrames.start()
 	blood.play("default")
-	
-	
+
+#endregion
+
+#region Stat Adjust Functions
+
+func adjust_stat(stat: String, bonus:float) -> void:
+	match stat:
+		"hp":
+			var current_percentage: float = current_health/max_health
+			max_health *= (bonus+100)/100
+			current_health = max_health * current_percentage
+		"armor":
+			@warning_ignore("narrowing_conversion")
+			armor += bonus
+		"ms":
+			movement_input.speed *= (bonus+100)/100
+		"as":
+			sword.attack_speed *= (bonus+100)/100
+		"cd":
+			sword.cooldown *= (100-bonus)/100
+		"dmg":
+			sword.damage.amount *= (bonus+100)/100
+		"knockback":
+			sword.damage.knockbackForce *= (bonus+100)/100
 #endregion
 
 #region exp
@@ -80,12 +86,9 @@ func collect_orb(_exp_amount : float) -> void:
 
 
 func _ready() -> void:
-	print(flat_bonus_health, " ", percentage_bonus_health, " ")
-	
-	
-	
+
 	GameState.player = self
-	current_health = get_max_hp(new_health,percentage_bonus_health,flat_bonus_health)
+	current_health = max_health
 	movement_input.speed = move_speed
 	damage_area.damage = damage
 	sword_animation.speed_scale = attack_speed
@@ -95,12 +98,14 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug"):
-		percentage_bonus_health += 0.1
+		adjust_stat("knocback", 5000)
 
-func _exit_tree() -> void:
-	if GameState.player == self:
-		GameState.player = null
+
 
 
 func _on_immunity_frames_timeout() -> void:
 	collision_layer = 2
+
+func _exit_tree() -> void:
+	if GameState.player == self:
+		GameState.player = null

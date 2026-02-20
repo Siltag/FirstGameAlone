@@ -1,10 +1,10 @@
 extends Node2D
 
-@export var damage: damage_profile
 @export var sword_animation : AnimationPlayer
 @export var owner_sprite : AnimatedSprite2D
 @export var spin_timer : Timer
 
+var damage: damage_profile
 #@onready var spin_timer: Timer = $spin_cooldown
 
 
