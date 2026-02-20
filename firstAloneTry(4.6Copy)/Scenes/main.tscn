@@ -141,7 +141,7 @@ tile_set = SubResource("TileSet_wsu2k")
 
 [node name="Enemy Spawner" parent="." unique_id=28377331 instance=ExtResource("7_6bp64")]
 enemy = ExtResource("6_21xkr")
-enemy_spawn_cooldown = 0.1
+enemy_spawn_cooldown = 1.0
 
 [node name="orb" parent="." unique_id=126263261 instance=ExtResource("6_6bp64")]
 position = Vector2(-94, 79)
@@ -153,7 +153,10 @@ move_speed = 300
 wait_time = 4096.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2105175587]
-zoom = Vector2(1.5, 1.5)
+position = Vector2(-1.9999999, 1)
+scale = Vector2(32.87763, -1.1573405)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [editable path="Player"]
 [editable path="Player/Sword"]

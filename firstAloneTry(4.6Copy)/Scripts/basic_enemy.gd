@@ -30,38 +30,16 @@ func take_damage(dmg: damage_profile, source_position: Vector2) -> void:
 	hit.emit(dmg, source_position)
 
 
-#func determine_spawn_location() -> void:
-	#var player : CharacterBody2D = GameState.player
-	#var viewport_size : Vector2 = get_viewport_rect().size * 2
-	#viewport_size += player.global_position
-	#var spawn_direction : String = ["top","bottom","left","right"].pick_random()
-	#
-	#match spawn_direction:
-		#"top":
-			#global_position.y-=viewport_size.y
-			#global_position.x+= randf_range(-viewport_size.x,viewport_size.x)
-		#"bottom":
-			#global_position.y+=viewport_size.y
-			#global_position.x+= randf_range(-viewport_size.x,viewport_size.x)
-		#"left":
-			#global_position.x-=viewport_size.x
-			#global_position.y+= randf_range(-viewport_size.y,viewport_size.y)
-		#"right":
-			#global_position.x+=viewport_size.x
-			#global_position.y+= randf_range(-viewport_size.y,viewport_size.y)
-
-
 func determine_spawn_location() -> void:
 	var player : CharacterBody2D = GameState.player
-	
 	var spawn_radius : int = 800
 	var angle: float = randf() * TAU
 	var spawn_location: Vector2 =  Vector2(cos(angle),sin(angle)) * spawn_radius
 	
+
 	global_position = player.global_position + spawn_location
-	
-	
-	
-	
-	
-	
+
+
+func _on_timer_timeout() -> void:
+	collision_layer = 4
+	collision_mask = 4

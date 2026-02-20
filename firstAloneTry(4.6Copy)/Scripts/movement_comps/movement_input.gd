@@ -17,18 +17,26 @@ func _physics_process(delta: float) -> void:
 	
 	if move_input != Vector2.ZERO:
 		velocity = speed * move_input
-		sprite.play("run")
+		#sprite.play("run")
 	
 	else:
 		velocity = Vector2(move_toward(velocity.x, 0, speed), 
 		move_toward(velocity.y, 0, speed))
-		if (velocity == Vector2.ZERO):
-			sprite.play("idle")
+		#if (velocity == Vector2.ZERO):
+			#sprite.play("idle")
 	
+	m_base.desired_velocity = velocity
+	m_dash.normal_velocity = velocity
+	
+func _process(_delta: float) -> void:
 	if player.velocity.x > 0:
+		
 		animation_player.play("right")
 	elif player.velocity.x < 0:
 		animation_player.play("left")
-	m_base.desired_velocity = velocity
-	m_dash.normal_velocity = velocity
+	
+	if velocity == Vector2.ZERO:
+		sprite.play("idle")
+	else:
+		sprite.play("run")
 	
