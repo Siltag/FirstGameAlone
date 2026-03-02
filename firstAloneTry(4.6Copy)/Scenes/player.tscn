@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daqgfdtnsuecd" path="res://Assets/GandalfHardcore Succubus DEMO/GandalfHardcore Succubus demo.png" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://cegahpd57bj34" path="res://Scripts/damage_resource.gd" id="2_x3wgy"]
 [ext_resource type="PackedScene" uid="uid://bj7bks587co51" path="res://Scenes/sword.tscn" id="3_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://djklrtfwxl2j6" path="res://Assets/Pixel UI pack 3/04.png" id="4_ukyrk"]
 [ext_resource type="Script" uid="uid://beis6iule1bya" path="res://Scripts/movement_comps/movement_base.gd" id="5_8erm5"]
 [ext_resource type="Script" uid="uid://c6c5u7saucpqq" path="res://Scripts/movement_comps/movement_knockback.gd" id="6_8erm5"]
 [ext_resource type="Script" uid="uid://7dewyeiq1wfr" path="res://Scripts/movement_comps/movement_input.gd" id="6_f1ek2"]
@@ -12,11 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://nwt1pkiw645r" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry2.png" id="10_ukyrk"]
 [ext_resource type="Texture2D" uid="uid://dxtmuley0gd2p" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry3.png" id="11_7dp3o"]
 [ext_resource type="Texture2D" uid="uid://chpv2mpa2et24" path="res://Assets/GandalfHardcore Succubus DEMO/bloodtry4.png" id="12_h4iuc"]
+[ext_resource type="Texture2D" uid="uid://dyyxpmooawnls" path="res://Assets/Pixel UI pack 3/07.png" id="14_7dp3o"]
 
 [sub_resource type="Resource" id="Resource_8erm5"]
 script = ExtResource("2_x3wgy")
 amount = 30
-knockbackForce = 5.0
+knockbackForce = 1.0
 knockbackDuration = 0.3
 metadata/_custom_type_script = "uid://cegahpd57bj34"
 
@@ -123,6 +125,14 @@ animations = [{
 "name": &"run",
 "speed": 10.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
+atlas = ExtResource("4_ukyrk")
+region = Rect2(295, 86, 34, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
+atlas = ExtResource("4_ukyrk")
+region = Rect2(55, 86, 34, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(30, 48)
@@ -238,10 +248,17 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("14_7dp3o")
+region = Rect2(47, 119, 12, 4)
+
 [node name="Player" type="CharacterBody2D" unique_id=163753771]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_cvnsp")
+base_health = 50
+move_speed = 1000
+attack_speed = 3.0
 damage = SubResource("Resource_8erm5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1385367538]
@@ -249,6 +266,14 @@ position = Vector2(-1, -36)
 sprite_frames = SubResource("SpriteFrames_f1ek2")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="hp_bar" type="TextureProgressBar" parent="AnimatedSprite2D" unique_id=1737984299]
+offset_left = -17.0
+offset_top = -22.0
+offset_right = 23.0
+offset_bottom = 18.0
+texture_under = SubResource("AtlasTexture_h4iuc")
+texture_progress = SubResource("AtlasTexture_fd4e3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=406028918]
 position = Vector2(-1, -24)
@@ -296,6 +321,19 @@ position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_fd4e3")
 frame = 4
 frame_progress = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=695206064]
+position = Vector2(-1.9999999, 1)
+scale = Vector2(32.87763, -1.1573405)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_speed = 10.0
+
+[node name="exp_bar" type="TextureProgressBar" parent="Camera2D" unique_id=907900124]
+offset_left = -9.733063
+offset_top = 145.16039
+offset_right = 9.733063
+offset_bottom = 155.7827
+texture_progress = SubResource("AtlasTexture_qqcod")
 
 [connection signal="timeout" from="player_movement/movement_dash_player/Timer" to="player_movement/movement_dash_player" method="_on_timer_timeout"]
 [connection signal="timeout" from="immunity_frames" to="." method="_on_immunity_frames_timeout"]

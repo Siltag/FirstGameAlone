@@ -13,7 +13,7 @@ var exp_amount: float
 
 func init(_tier: int) -> void:
 	tier = _tier
-	exp_amount = snapped(base_exp * tier * tier * randf(), 0.1)
+	exp_amount = snapped(base_exp * tier * tier, 0.1)
 	match _tier:
 		1:
 			tier_1.visible = true

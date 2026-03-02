@@ -147,16 +147,4 @@ enemy_spawn_cooldown = 1.0
 position = Vector2(-94, 79)
 
 [node name="Player" parent="." unique_id=163753771 instance=ExtResource("1_jjgbg")]
-move_speed = 300
-
-[node name="spin_cooldown" parent="Player/Sword/blade/Sprite2D/DamageArea" parent_id_path=PackedInt32Array(163753771, 422714246, 1877580495) index="1" unique_id=1063513923]
-wait_time = 4096.0
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2105175587]
-position = Vector2(-1.9999999, 1)
-scale = Vector2(32.87763, -1.1573405)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-
-[editable path="Player"]
-[editable path="Player/Sword"]
+position = Vector2(2, -13)

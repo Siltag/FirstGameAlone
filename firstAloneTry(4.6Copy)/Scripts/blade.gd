@@ -1,10 +1,10 @@
 extends Node2D
+@onready var damage_area: DamageArea = $Sprite2D/DamageArea
 
 @export var sword_animation : AnimationPlayer
 @export var owner_sprite : AnimatedSprite2D
 @export var spin_timer : Timer
 
-var damage: damage_profile
 #@onready var spin_timer: Timer = $spin_cooldown
 
 
@@ -29,6 +29,15 @@ var attack_speed: float :
 			sword_animation.speed_scale = value
 	get:
 		return _attack_speed
+
+var _dmg: damage_profile
+var damage: damage_profile :
+	set(v):
+		_dmg = v
+		damage_area.damage = _dmg
+	get:
+		return _dmg
+
 #endregion
 
 
